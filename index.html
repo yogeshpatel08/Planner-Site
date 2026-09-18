@@ -1,0 +1,770 @@
+<title>Western Europe 2026</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Work+Sans:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --paper:#F4F1E7;
+  --surface:#FFFFFF;
+  --surface-2:#EAE4D3;
+  --ink:#20263F;
+  --ink-dim:#6B6656;
+  --ink-faint:#A39C89;
+  --line:rgba(32,38,63,0.12);
+  --accent:#8C2F2F;
+  --accent-ink:#FFFFFF;
+  --cat-sight:#B5651D;
+  --cat-meal:#8C2F2F;
+  --cat-transit:#28568A;
+  --cat-travel:#726A55;
+  --sec-flights:#28568A;
+  --sec-hotel:#B5651D;
+  --sec-transport:#3E6B5C;
+  --sec-excursions:#6B4A8C;
+  --sec-food:#8C2F2F;
+  --sec-extras:#5A6350;
+  --good-bg:#DCEBDD; --good-ink:#2C6B3F;
+  --warn-bg:#F3E1BE; --warn-ink:#8A5A16;
+  --new-bg:#F3DADA; --new-ink:#8C2F2F;
+  --radius:14px;
+  --shadow:0 1px 2px rgba(32,38,63,0.06), 0 6px 18px rgba(32,38,63,0.06);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#1B1810; --surface:#252017; --surface-2:#332C1E;
+    --ink:#F1ECDD; --ink-dim:#C2B9A0; --ink-faint:#8C8370;
+    --line:rgba(241,236,221,0.14);
+    --accent:#E0A0A0; --accent-ink:#1B1810;
+    --cat-sight:#E0A857; --cat-meal:#E0A0A0; --cat-transit:#8FB4E0; --cat-travel:#B3AB94;
+    --sec-flights:#8FB4E0; --sec-hotel:#E0A857; --sec-transport:#8FCBB4; --sec-excursions:#C6A8E0; --sec-food:#E0A0A0; --sec-extras:#B7C2A8;
+    --good-bg:#233B29; --good-ink:#8FCB9E;
+    --warn-bg:#3E3116; --warn-ink:#E0B96E;
+    --new-bg:#3E2020; --new-ink:#E0A0A0;
+    --shadow:0 1px 2px rgba(0,0,0,0.3), 0 8px 22px rgba(0,0,0,0.35);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#1B1810; --surface:#252017; --surface-2:#332C1E;
+  --ink:#F1ECDD; --ink-dim:#C2B9A0; --ink-faint:#8C8370;
+  --line:rgba(241,236,221,0.14);
+  --accent:#E0A0A0; --accent-ink:#1B1810;
+  --cat-sight:#E0A857; --cat-meal:#E0A0A0; --cat-transit:#8FB4E0; --cat-travel:#B3AB94;
+  --sec-flights:#8FB4E0; --sec-hotel:#E0A857; --sec-transport:#8FCBB4; --sec-excursions:#C6A8E0; --sec-food:#E0A0A0; --sec-extras:#B7C2A8;
+  --good-bg:#233B29; --good-ink:#8FCB9E;
+  --warn-bg:#3E3116; --warn-ink:#E0B96E;
+  --new-bg:#3E2020; --new-ink:#E0A0A0;
+  --shadow:0 1px 2px rgba(0,0,0,0.3), 0 8px 22px rgba(0,0,0,0.35);
+  color-scheme: dark;
+}
+
+*{box-sizing:border-box;}
+html,body{height:100%;}
+body{
+  background:var(--paper); color:var(--ink);
+  font-family:"Work Sans", ui-sans-serif, system-ui, sans-serif;
+  padding-inline:16px; max-width:760px; margin:0 auto;
+  padding-bottom:calc(84px + env(safe-area-inset-bottom,0px));
+}
+h1,h2,h3{font-family:"Playfair Display", Georgia, serif; text-wrap:balance; margin:0;}
+.tnum{font-variant-numeric:tabular-nums;}
+
+.topbar{padding-block:18px 10px; display:flex; align-items:baseline; justify-content:space-between; gap:10px;}
+.topbar .brand{font-family:"Playfair Display"; font-weight:700; font-size:1.15rem;}
+.topbar .dates{font-size:0.75rem; color:var(--ink-dim);}
+
+section[data-view][hidden]{display:none;}
+
+.route{display:flex; gap:6px; overflow-x:auto; padding-bottom:6px; scrollbar-width:thin;}
+.route-leg{flex:0 0 auto; font-size:0.7rem; padding:5px 10px; border-radius:999px; background:var(--surface); color:var(--ink-dim); white-space:nowrap; border:1px solid var(--line);}
+.route-leg.here{background:var(--accent); color:var(--accent-ink); border-color:transparent; font-weight:600;}
+
+.hero-card{
+  background:var(--surface); border-radius:var(--radius); box-shadow:var(--shadow);
+  padding:22px 18px; margin-top:6px; text-align:center;
+}
+.hero-card h1{font-size:2rem; letter-spacing:-0.01em;}
+.hero-card .sub{color:var(--ink-dim); font-size:0.85rem; margin-top:4px;}
+.countdown{margin-top:14px; display:inline-flex; align-items:baseline; gap:6px; background:var(--surface-2); border-radius:999px; padding:6px 16px;}
+.countdown .n{font-family:"Playfair Display"; font-weight:700; font-size:1.3rem;}
+.countdown .u{font-size:0.72rem; color:var(--ink-dim); text-transform:uppercase; letter-spacing:0.05em;}
+
+.stat-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:16px;}
+.stat-tile{background:var(--surface); border-radius:var(--radius); box-shadow:var(--shadow); padding:12px 10px; text-align:center;}
+.stat-tile .v{font-family:"Playfair Display"; font-weight:700; font-size:1.3rem;}
+.stat-tile .l{font-size:0.65rem; color:var(--ink-dim); text-transform:uppercase; letter-spacing:0.04em; margin-top:2px;}
+
+.upnext{margin-top:18px;}
+.upnext h3{font-size:1.05rem; margin-bottom:8px;}
+
+.quicklinks{display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:18px;}
+.quicklink{background:var(--surface); border-radius:var(--radius); box-shadow:var(--shadow); padding:12px 8px; text-align:center; border:none; font:inherit; color:var(--ink); cursor:pointer;}
+.quicklink .qi{font-size:1.2rem;}
+.quicklink .ql{font-size:0.68rem; color:var(--ink-dim); margin-top:4px; display:block;}
+
+.day-jump{display:flex; gap:8px; overflow-x:auto; padding-block:14px 4px; scrollbar-width:thin; position:sticky; top:env(safe-area-inset-top,0px); background:var(--paper); z-index:5;}
+.day-jump button{
+  flex:0 0 auto; font:inherit; font-size:0.72rem; font-weight:600; padding:6px 12px; border-radius:999px;
+  border:1px solid var(--line); background:var(--surface); color:var(--ink-dim); cursor:pointer;
+}
+.day-jump button.here{background:var(--ink); border-color:var(--ink); color:var(--paper);}
+
+.day-section{margin-top:22px;}
+.day-eyebrow{font-size:0.68rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--ink-faint); font-weight:600;}
+.day-heading{font-size:1.3rem; margin-top:2px;}
+.day-sub{color:var(--ink-dim); font-size:0.82rem; margin-top:2px;}
+
+.route-diagram-wrap{margin-top:12px;}
+.route-diagram{display:flex; align-items:center; overflow-x:auto; gap:0; padding:12px 4px; scrollbar-width:thin;
+  background:var(--surface); border-radius:var(--radius); box-shadow:var(--shadow);}
+.rd-node{flex:0 0 auto; display:flex; flex-direction:column; align-items:center; width:84px; text-align:center;}
+.rd-dot{width:9px; height:9px; border-radius:50%; background:var(--accent); margin-bottom:5px;}
+.rd-label{font-size:0.68rem; line-height:1.25; color:var(--ink); font-weight:500;}
+.rd-label.tbd{color:var(--ink-faint); font-style:italic;}
+.rd-conn{flex:0 0 auto; display:flex; flex-direction:column; align-items:center; width:52px; margin-top:-14px;}
+.rd-conn .ln{width:100%; height:1px; background:var(--line); position:relative; top:5px;}
+.rd-conn .rd-time{font-size:0.6rem; color:var(--ink-faint); margin-top:6px; white-space:nowrap;}
+.maps-link{
+  display:inline-flex; align-items:center; gap:5px; margin-top:8px; font-size:0.76rem; font-weight:600;
+  color:var(--cat-transit); text-decoration:none;
+}
+.maps-link:hover{text-decoration:underline;}
+.maps-link svg{width:13px; height:13px;}
+
+.tl-card{background:var(--surface); border-radius:var(--radius); box-shadow:var(--shadow); margin-top:12px; padding:6px 16px;}
+.tl-row{display:grid; grid-template-columns:52px 1fr; gap:12px; padding-block:12px; position:relative;}
+.tl-row:not(:last-child){border-bottom:1px solid var(--line);}
+.tl-dotcol{position:relative; display:flex; flex-direction:column; align-items:center;}
+.tl-dot{width:10px; height:10px; border-radius:50%; background:var(--dot); margin-top:5px; box-shadow:0 0 0 3px var(--surface);}
+.tl-row:not(:last-child) .tl-dotcol::after{
+  content:""; position:absolute; top:16px; bottom:-12px; width:2px; background:var(--line);
+}
+.tl-time{font-weight:600; font-size:0.72rem; color:var(--ink-dim); text-align:left;}
+.tl-time .arr{color:var(--ink-faint); font-weight:400; display:block;}
+.tl-title{font-size:0.95rem; font-weight:500; margin-top:2px;}
+.tl-title .newtag{font-size:0.6rem; font-weight:700; background:var(--new-bg); color:var(--new-ink); border-radius:5px; padding:1px 5px; margin-left:6px; letter-spacing:0.03em; vertical-align:middle;}
+.tl-note{color:var(--ink-dim); font-size:0.82rem; margin-top:3px; line-height:1.4;}
+.tl-addr{color:var(--ink-faint); font-size:0.72rem; margin-top:2px; font-style:italic;}
+.empty-note{color:var(--ink-faint); font-size:0.85rem; padding-block:20px; text-align:center;}
+
+.legend{display:flex; gap:14px; flex-wrap:wrap; padding-block:2px 4px; font-size:0.74rem; color:var(--ink-dim);}
+.legend span{display:inline-flex; align-items:center; gap:5px;}
+.legend i{width:8px; height:8px; border-radius:50%; display:inline-block;}
+
+.food-card{background:var(--surface); border-radius:var(--radius); box-shadow:var(--shadow); margin-top:12px; overflow:hidden;}
+.food-row{display:grid; grid-template-columns:30px 1fr auto; gap:10px; align-items:start; padding:12px 14px;}
+.food-row:not(:last-child){border-bottom:1px solid var(--line);}
+.food-icon{width:26px; height:26px; border-radius:50%; background:var(--surface-2); display:flex; align-items:center; justify-content:center; color:var(--cat-meal); flex-shrink:0;}
+.food-meta{min-width:0;}
+.food-type{font-size:0.65rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--ink-faint); font-weight:600;}
+.food-name{font-size:0.92rem; font-weight:500; margin-top:1px;}
+.food-note{font-size:0.78rem; color:var(--ink-dim); margin-top:3px;}
+.food-right{display:flex; flex-direction:column; align-items:flex-end; gap:6px;}
+.pill{font-size:0.66rem; font-weight:600; padding:3px 9px; border-radius:999px; white-space:nowrap;}
+.pill.good{background:var(--good-bg); color:var(--good-ink);}
+.pill.warn{background:var(--warn-bg); color:var(--warn-ink);}
+
+.chiplist{display:flex; flex-wrap:wrap; gap:6px; margin-top:10px;}
+.chip{font-size:0.74rem; padding:5px 11px; border-radius:999px; background:var(--surface-2); color:var(--ink-dim);}
+
+/* ---------------- generic info-card list (flights/hotels/trains/activities) ---------------- */
+.info-card{background:var(--surface); border-radius:var(--radius); box-shadow:var(--shadow); margin-top:12px; padding:14px 16px;}
+.info-card + .info-card{margin-top:10px;}
+.info-head{display:flex; justify-content:space-between; align-items:flex-start; gap:10px;}
+.info-title{font-size:1rem; font-weight:600;}
+.info-sub{font-size:0.78rem; color:var(--ink-dim); margin-top:2px;}
+.info-badge{font-size:0.65rem; font-weight:700; padding:3px 9px; border-radius:999px; white-space:nowrap;}
+.info-badge.good{background:var(--good-bg); color:var(--good-ink);}
+.info-badge.warn{background:var(--warn-bg); color:var(--warn-ink);}
+.info-row{display:flex; justify-content:space-between; gap:10px; font-size:0.82rem; color:var(--ink-dim); margin-top:8px; padding-top:8px; border-top:1px solid var(--line);}
+.info-row .k{color:var(--ink-faint); font-size:0.68rem; text-transform:uppercase; letter-spacing:0.04em;}
+.info-note{font-size:0.8rem; color:var(--ink-dim); margin-top:8px; line-height:1.4;}
+.info-link{font-size:0.78rem; color:var(--cat-transit); text-decoration:none; font-weight:600; display:inline-block; margin-top:8px;}
+.info-link:hover{text-decoration:underline;}
+.section-eyebrow{font-size:0.72rem; text-transform:uppercase; letter-spacing:0.07em; color:var(--ink-faint); font-weight:700; margin-top:24px;}
+.section-eyebrow:first-child{margin-top:4px;}
+.summary-card{background:var(--surface-2); border-radius:var(--radius); padding:12px 16px; margin-top:10px; font-size:0.82rem; color:var(--ink-dim); line-height:1.5;}
+
+/* ---------------- BUDGET ---------------- */
+.stat-row{display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:10px; margin-top:16px;}
+.stat{background:var(--surface); border-radius:var(--radius); box-shadow:var(--shadow); padding:12px 14px;}
+.stat .label{font-size:0.65rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--ink-faint);}
+.stat .value{font-family:"Playfair Display"; font-weight:700; font-size:1.35rem; margin-top:2px;}
+.stat .value.warn{color:var(--cat-meal);}
+
+.barchart{margin-top:16px; display:flex; flex-direction:column; gap:8px;}
+.bar-row{display:grid; grid-template-columns:110px 1fr 58px; align-items:center; gap:10px; font-size:0.76rem;}
+.bar-row .label{color:var(--ink-dim); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.bar-track{background:var(--surface-2); border-radius:5px; height:8px; overflow:hidden;}
+.bar-fill{height:100%; border-radius:5px;}
+.bar-row .amt{text-align:right; color:var(--ink-dim);}
+
+.cost-section{margin-top:22px;}
+.cost-section-head{display:flex; justify-content:space-between; align-items:baseline; gap:10px;}
+.cost-section-head h3{font-size:1.05rem;}
+.cost-section-head .subtotal{font-size:0.85rem; color:var(--ink-dim);}
+.cost-swatch{display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:7px;}
+.cost-list{margin-top:8px; display:flex; flex-direction:column; gap:6px;}
+.cost-item{background:var(--surface); border-radius:var(--radius); box-shadow:var(--shadow); padding:9px 12px; display:grid; grid-template-columns:1fr 92px 26px; gap:8px; align-items:center;}
+.cost-item .field2{grid-column:1/3; display:grid; grid-template-columns:1fr 1fr; gap:6px;}
+input.ci{font:inherit; border:1px solid transparent; background:transparent; color:var(--ink); border-radius:6px; padding:5px 6px; width:100%; min-width:0;}
+input.ci:hover{background:var(--surface-2);}
+input.ci:focus{outline:none; border-color:var(--accent); background:var(--surface-2);}
+input.ci.name{font-weight:500;}
+input.ci.cost{text-align:right;}
+input.ci.details,input.ci.link{font-size:0.78rem; color:var(--ink-dim);}
+.cost-input-wrap{display:flex; align-items:center; gap:2px;}
+.cost-input-wrap .sym{color:var(--ink-faint); font-size:0.8rem;}
+.delbtn{border:none; background:none; color:var(--ink-faint); cursor:pointer; font-size:1rem; width:26px; height:26px; border-radius:6px;}
+.delbtn:hover{background:var(--surface-2); color:var(--accent);}
+.addbtn{margin-top:8px; border:1px dashed var(--line); background:none; color:var(--ink-dim); font:inherit; font-size:0.8rem; padding:8px 10px; border-radius:var(--radius); cursor:pointer; width:100%;}
+.addbtn:hover{border-color:var(--accent); color:var(--accent);}
+.savehint{font-size:0.7rem; color:var(--ink-faint); text-align:center; margin-top:18px;}
+.offline{background:var(--warn-bg); color:var(--warn-ink); border-radius:var(--radius); padding:10px 12px; font-size:0.8rem; margin-top:16px; display:none;}
+.offline.show{display:block;}
+
+.tabbar{
+  position:fixed; left:0; right:0; bottom:0; z-index:20;
+  display:flex; justify-content:center;
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  background:var(--surface); border-top:1px solid var(--line);
+}
+.tabbar-inner{display:flex; width:100%; max-width:760px; padding-inline:4px; overflow-x:auto; scrollbar-width:none;}
+.tabbar-inner::-webkit-scrollbar{display:none;}
+.navbtn{
+  flex:0 0 auto; min-width:64px; display:flex; flex-direction:column; align-items:center; gap:3px;
+  padding-block:9px 7px; padding-inline:8px; background:none; border:none; color:var(--ink-faint); font:inherit; cursor:pointer;
+}
+.navbtn svg{width:20px; height:20px;}
+.navbtn .lbl{font-size:0.6rem; font-weight:600;}
+.navbtn.active{color:var(--accent);}
+.navbtn:focus-visible{outline:2px solid var(--accent); outline-offset:-2px; border-radius:8px;}
+</style>
+
+<div class="topbar">
+  <div class="brand">Western Europe</div>
+  <div class="dates tnum">Oct 2–19, 2026</div>
+</div>
+
+<section data-view="home">
+  <div class="hero-card">
+    <h1>Western&nbsp;Europe</h1>
+    <div class="sub">London · Edinburgh · Paris · Brussels · Amsterdam · Reykjavík</div>
+    <div class="countdown"><span class="n tnum" id="cdNum">–</span><span class="u" id="cdUnit">days to go</span></div>
+  </div>
+  <div class="route" id="routeStripHome" style="margin-top:14px;"></div>
+  <div class="stat-grid">
+    <div class="stat-tile"><div class="v tnum">18</div><div class="l">Days</div></div>
+    <div class="stat-tile"><div class="v tnum" id="statCitiesHome">–</div><div class="l">Legs</div></div>
+    <div class="stat-tile"><div class="v tnum" id="statFlightsHome">–</div><div class="l">Flights</div></div>
+  </div>
+  <div class="quicklinks">
+    <button class="quicklink" data-goto="flights"><span class="qi">✈️</span><span class="ql">Flights</span></button>
+    <button class="quicklink" data-goto="hotels"><span class="qi">🛎️</span><span class="ql">Hotels</span></button>
+    <button class="quicklink" data-goto="trains"><span class="qi">🚆</span><span class="ql">Trains</span></button>
+    <button class="quicklink" data-goto="activities"><span class="qi">🎟️</span><span class="ql">Activities</span></button>
+  </div>
+  <div class="upnext">
+    <h3>Up next</h3>
+    <div class="tl-card" id="upNextCard"></div>
+  </div>
+</section>
+
+<section data-view="plan" hidden>
+  <div class="day-jump" id="planJump"></div>
+  <div class="legend">
+    <span><i style="background:var(--cat-sight)"></i>Sight</span>
+    <span><i style="background:var(--cat-meal)"></i>Meal</span>
+    <span><i style="background:var(--cat-transit)"></i>Transit</span>
+    <span><i style="background:var(--cat-travel)"></i>Logistics</span>
+    <span><i style="background:var(--new-ink)"></i>NEW addition</span>
+  </div>
+  <div id="planDays"></div>
+</section>
+
+<section data-view="food" hidden>
+  <div class="day-jump" id="foodJump"></div>
+  <div id="foodDays"></div>
+</section>
+
+<section data-view="flights" hidden>
+  <div id="flightsList"></div>
+</section>
+
+<section data-view="hotels" hidden>
+  <div id="hotelsList"></div>
+</section>
+
+<section data-view="trains" hidden>
+  <div id="trainsList"></div>
+</section>
+
+<section data-view="activities" hidden>
+  <div id="activitiesList"></div>
+</section>
+
+<section data-view="costs" hidden>
+  <div class="stat-row">
+    <div class="stat"><div class="label">Trip total</div><div class="value tnum" id="statTotal">$0</div></div>
+    <div class="stat"><div class="label">Per person (÷3)</div><div class="value tnum" id="statPerPerson">$0</div></div>
+    <div class="stat"><div class="label">Items still TBD</div><div class="value tnum warn" id="statTbd">0</div></div>
+  </div>
+  <div class="barchart" id="barChart"></div>
+  <div id="costSections"></div>
+  <div class="offline" id="offlineNote">Budget changes couldn't reach shared storage in this preview — edits here won't be saved. Open the published link to edit for real.</div>
+  <div class="savehint">Budget is shared and saved automatically — anyone with this link sees the same numbers.</div>
+</section>
+
+<nav class="tabbar">
+  <div class="tabbar-inner" id="tabbarInner">
+    <button class="navbtn active" data-tab="home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v9a1 1 0 0 0 1 1H10v-6h4v6h3.5a1 1 0 0 0 1-1v-9"/></svg>
+      <span class="lbl">Home</span>
+    </button>
+    <button class="navbtn" data-tab="plan">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 9.5h16M8 3v4M16 3v4"/><path d="M8 13.5h2M8 16.5h2M14 13.5h2M14 16.5h2"/></svg>
+      <span class="lbl">Plan</span>
+    </button>
+    <button class="navbtn" data-tab="flights">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 20.5 12 22l1.5-1.5-.5-4.5 4-4 3 1 1-1-3.5-3 1-4-1-1-3 3-4.5-.5-1.5 1.5 2 3-3.5 3.5-4-1-1.5 1.5 3 3.5Z"/></svg>
+      <span class="lbl">Flights</span>
+    </button>
+    <button class="navbtn" data-tab="hotels">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V7a1 1 0 0 1 1-1h4v15"/><path d="M8 21V10a1 1 0 0 1 1-1h11a1 1 0 0 1 1 1v11"/><path d="M12 21v-4h4v4M8 6V4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2"/></svg>
+      <span class="lbl">Hotels</span>
+    </button>
+    <button class="navbtn" data-tab="trains">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="14" rx="4"/><path d="M5 12h14M8 17l-2 4M16 17l2 4"/><circle cx="9" cy="9" r="0" /></svg>
+      <span class="lbl">Trains</span>
+    </button>
+    <button class="navbtn" data-tab="activities">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10a2 2 0 0 0 0 4v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3a2 2 0 0 1 0-4V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1Z"/><path d="M10 6v12"/></svg>
+      <span class="lbl">Activities</span>
+    </button>
+    <button class="navbtn" data-tab="food">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3v7a1.5 1.5 0 0 0 3 0V3M8.5 10V21M16.5 3c-1.4 0-2.5 1.8-2.5 5s1.1 4.6 2.5 4.9V21"/></svg>
+      <span class="lbl">Food</span>
+    </button>
+    <button class="navbtn" data-tab="costs">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="6.5" width="17" height="12" rx="2.2"/><path d="M3.5 10.5h17"/><circle cx="16.5" cy="14.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+      <span class="lbl">Budget</span>
+    </button>
+  </div>
+</nav>
+
+<script>
+const ITINERARY = [{"date": "2026-10-02", "dow": "Friday", "city": null, "acts": [{"s": "5:00 AM", "e": "5:30 PM", "t": "Work", "n": "Regular work day before heading to the airport tonight.", "addr": null, "new": false, "k": "sight"}, {"s": "5:30 PM", "e": "6:00 PM", "t": "Any parents will drop  us - parthika's mom Or sister", "n": "A family member drives you to Newark Airport for the overnight flight to Iceland.", "addr": null, "new": false, "k": "sight"}, {"s": "6:00 PM", "e": "8:30 PM", "t": "Get to airport and check in", "n": null, "addr": null, "new": false, "k": "travel"}, {"s": "8:30 PM", "e": null, "t": "EWR to Iceland: 8:20pm - 6:15am - bring dinner from home", "n": "Overnight flight, Newark to Keflav\u00edk \u2014 bring dinner from home since options may be limited.", "addr": null, "new": false, "k": "meal"}]}, {"date": "2026-10-03", "dow": "Saturday", "city": null, "acts": [{"s": "5:00 AM", "e": "6:30 AM", "t": "EWR to Iceland: 9:30pm - 6:15am", "n": "Overnight flight from Newark to Keflav\u00edk International Airport, landing early morning.", "addr": null, "new": false, "k": "sight"}, {"s": "6:30 AM", "e": "7:30 AM", "t": "Get to bus station by 7:15am", "n": "Catch the airport shuttle bus toward the Blue Lagoon after landing.", "addr": null, "new": false, "k": "sight"}, {"s": "7:30 AM", "e": "8:00 AM", "t": "Bus to Blue Lagoon leaves at 7:30am", "n": null, "addr": null, "new": false, "k": "transit"}, {"s": "8:00 AM", "e": "12:00 PM", "t": "SHOWER AND DO PUJA HERE - go to private lounge area since we are early enough - Blue Lagoon - be showered and ready by 11;45am latest - check if they have food we can eat at blue lagoon -  have your bathing suit accessible and bathrobe - we get one free drink included, slippers, change of clothes", "n": "Blue Lagoon stop \u2014 soak, shower, and do puja before continuing on to Reykjav\u00edk; keep your bathing suit and bathrobe accessible.", "addr": null, "new": false, "k": "sight"}, {"s": "12:00 PM", "e": "12:30 PM", "t": "Bus back to Airport 12pm sharp", "n": null, "addr": null, "new": false, "k": "transit"}, {"s": "12:30 PM", "e": "4:00 PM", "t": "Get to Iceland Airport by 12:30 pm, go through security and everything again, make sure dont buy antyhing in large quantity", "n": "llook at rules", "addr": null, "new": false, "k": "travel"}, {"s": "4:00 PM", "e": "8:30 PM", "t": "Iceland to London Heathrow:  4:10pm - 8:30pm", "n": "Afternoon flight from Keflav\u00edk to London Heathrow.", "addr": null, "new": false, "k": "sight"}, {"s": "8:30 PM", "e": "11:00 PM", "t": "Get uber, get to Hotel, shower, chill - keep extra meal just in case we don't have enough food", "n": null, "addr": null, "new": false, "k": "travel"}, {"s": "11:00 PM", "e": null, "t": "Sleep for Puja Darshan", "n": "Early to bed \u2014 tomorrow starts before 3am for puja darshan.", "addr": null, "new": false, "k": "sight"}]}, {"date": "2026-10-04", "dow": "Sunday", "city": "London", "acts": [{"s": "5:00 AM", "e": "8:00 AM", "t": "Puja darshan - need to leave by 3:00am uber from hotel to mandir is 10 min car ride - bring punjabi for entire day", "n": null, "addr": null, "new": false, "k": "travel"}, {"s": "8:00 AM", "e": "9:30 AM", "t": "Eat brunch in shayona, and take enough food for lunch at hotel", "n": "Vegetarian brunch at Shayona \u2014 pack extra to cover lunch back at the hotel.", "addr": null, "new": false, "k": "meal"}, {"s": "9:30 AM", "e": "1:00 PM", "t": "Catch up on sleep and rest (keep one pair of in between hotel clothes that are not pajamas just chill clothes for hotel bed (NO OUTSIDE CLOTHES ON BED!!!), hang with friends ???", "n": null, "addr": null, "new": false, "k": "travel"}, {"s": "1:00 PM", "e": "3:00 PM", "t": "Leave to go to the stadiun fromn hotel - 10 min drive", "n": null, "addr": null, "new": false, "k": "travel"}, {"s": "3:00 PM", "e": "10:00 PM", "t": "Samaiyo at wembley stadium - bring binoculars and have ticekts ready, sunglasses?", "n": "Evening event at Wembley Stadium \u2014 bring tickets, binoculars, and sunglasses.", "addr": null, "new": false, "k": "sight"}, {"s": "10:00 PM", "e": null, "t": "Get to hotel and rest", "n": null, "addr": null, "new": false, "k": "travel"}]}, {"date": "2026-10-05", "dow": "Monday", "city": "London - Edinburgh", "acts": [{"s": "5:00 AM", "e": "10:00 AM", "t": "Sleep in", "n": null, "addr": null, "new": false, "k": "sight"}, {"s": "10:00 AM", "e": "12:00 PM", "t": "Hang with friends near trainn station for lunch or brunch somnehere - ask aarti, maitri and darpan", "n": null, "addr": null, "new": false, "k": "meal"}, {"s": "12:00 PM", "e": "2:00 PM", "t": "Get to Train Station - wear comfy clothes", "n": "Head to the station for the ride up to Edinburgh \u2014 wear something comfortable for the journey.", "addr": null, "new": false, "k": "sight"}, {"s": "2:00 PM", "e": "7:00 PM", "t": "Train to Edinburgh \u2014 Departs at 2:03pm,  train station is 45 mins-60 mins from the hotel to center city", "n": null, "addr": null, "new": false, "k": "transit"}, {"s": "7:00 PM", "e": "7:30 PM", "t": "Arrive Edinburgh Waverley & transfer to hotel/Airbnb", "n": null, "addr": null, "new": false, "k": "travel"}, {"s": "7:30 PM", "e": "8:00 PM", "t": "Hotel check-in", "n": null, "addr": null, "new": false, "k": "travel"}, {"s": "8:00 PM", "e": "9:30 PM", "t": "DINNER \u2014 [spot TBD]", "n": "Restaurant not booked yet \u2014 plan to find a good spot near today's stops.", "addr": null, "new": false, "k": "meal"}, {"s": "9:30 PM", "e": null, "t": "Go back to hotel and rest", "n": null, "addr": null, "new": false, "k": "travel"}]}, {"date": "2026-10-06", "dow": "Tuesday - Ekadashi", "city": "Edinburgh - Highlands Tour", "acts": [{"s": "5:00 AM", "e": "6:00 AM", "t": "Wake up and get ready", "n": null, "addr": null, "new": false, "k": "travel"}, {"s": "6:00 AM", "e": "7:00 AM", "t": "Get to Tour spots (Burns Monument) Tour leaves at 7am - get there by 6:45am", "n": "Meet point for the Highlands day tour (Glenfinnan, Glencoe, Fort William) \u2014 the coach departs at 7am sharp.", "addr": null, "new": false, "k": "sight"}, {"s": "7:00 AM", "e": "8:30 AM", "t": "Drive to Balquhidder", "n": null, "addr": null, "new": false, "k": "transit"}, {"s": "8:30 AM", "e": "9:00 AM", "t": "Balquhidder", "n": "coffee break", "addr": null, "new": false, "k": "sight"}, {"s": "9:00 AM", "e": "10:30 AM", "t": "Drive to Glencoe", "n": null, "addr": null, "new": false, "k": "transit"}, {"s": "10:30 AM", "e": "11:00 AM", "t": "Glencoe", "n": "photo spots - 15min Stop", "addr": null, "new": false, "k": "sight"}, {"s": "11:00 AM", "e": "11:30 AM", "t": "Fort William Drive through", "n": "Scenic", "addr": null, "new": false, "k": "sight"}, {"s": "11:30 AM", "e": "12:00 PM", "t": "Drive to Glenfinnan Viaduct", "n": null, "addr": null, "new": false, "k": "transit"}, {"s": "12:00 PM", "e": "1:00 PM", "t": "Glenfinnan Viaduct", "n": "1hr free time - harry potter train, trail, scenic photo", "addr": null, "new": false, "k": "sight"}, {"s": "1:00 PM", "e": "2:30 PM", "t": "Loch Shiel", "n": "Photostop", "addr": null, "new": false, "k": "sight"}, {"s": "2:30 PM", "e": "4:00 PM", "t": "Drive to Commando Memorial and 10 minute stop", "n": null, "addr": null, "new": false, "k": "transit"}, {"s": "4:00 PM", "e": "5:30 PM", "t": "Drive to Pitlochry through the national Park", "n": null, "addr": null, "new": false, "k": "transit"}, {"s": "5:30 PM", "e": "6:00 PM", "t": "Pitlochry", "n": "30 min break and stop", "addr": null, "new": false, "k": "sight"}, {"s": "6:00 PM", "e": "7:30 PM", "t": "Drive back to Burns Monument", "n": null, "addr": null, "new": false, "k": "transit"}, {"s": "7:30 PM", "e": "9:00 PM", "t": "DINNER - Frites - Lothian Road - 63 Lothian Rd, Edinburgh EH 1 2DJ UK", "n": "Belgian-style fries spot on Lothian Road.", "addr": null, "new": false, "k": "meal"}, {"s": "9:00 PM", "e": null, "t": "Hotel", "n": null, "addr": null, "new": false, "k": "travel"}]}, {"date": "2026-10-07", "dow": "Wednesday", "city": "Edinburgh", "acts": [{"s": "7:30 AM", "e": "9:00 AM", "t": "Wake up and get ready", "n": null, "addr": null, "new": false, "k": "travel"}, {"s": "9:00 AM", "e": "9:30 AM", "t": "BREAKFAST \u2014 [spot TBD]", "n": "Restaurant not booked yet \u2014 plan to find a good spot near today's stops.", "addr": null, "new": false, "k": "meal"}, {"s": "9:30 AM", "e": "10:00 AM", "t": "Walk to Dean Village", "n": "~20 min via Queensferry Street / Bells Brae + buffer", "addr": null, "new": false, "k": "transit"}, {"s": "10:00 AM", "e": null, "t": "Dean Village", "n": "Picturesque former mill village on the Water of Leith \u2014 some of the best photos in the city", "addr": null, "new": false, "k": "sight"}, {"s": null, "e": null, "t": "Water of Leith Walkway", "n": "~2 min walk from the previous stop \u2014 Follow the riverside path north from Dean Village toward Stockbridge", "addr": null, "new": true, "k": "sight"}, {"s": null, "e": null, "t": "Stockbridge", "n": "~10 min walk from the previous stop \u2014 Charming village-like neighbourhood along the Water of Leith", "addr": "Stockbridge, Edinburgh", "new": true, "k": "sight"}, {"s": null, "e": "10:30 AM", "t": "Circus Lane", "n": "~2 min walk from the previous stop \u2014 One of Edinburgh's most photographed mews lanes, just off Stockbridge", "addr": "Circus Ln, Edinburgh EH3 6SU", "new": true, "k": "sight"}, {"s": "10:30 AM", "e": "11:00 AM", "t": "Walk back to Princes Street Gardens", "n": "~18-20 min, same route back", "addr": null, "new": false, "k": "transit"}, {"s": "11:00 AM", "e": "11:30 AM", "t": "Princes Street Gardens & Ross Fountain", "n": "Stroll through the gardens; Ross Fountain at the west end, Castle looming above", "addr": null, "new": false, "k": "sight"}, {"s": "11:30 AM", "e": "12:30 PM", "t": "National Galleries of Scotland ~7 min walk over folded in \u2014 free entry, an easy, manageable size", "n": "Scotland's national art collection \u2014 free entry, and a manageable size for a quick visit.", "addr": null, "new": false, "k": "sight"}, {"s": "12:30 PM", "e": "1:30 PM", "t": "LUNCH \u2014 [spot TBD]", "n": "Restaurant not booked yet \u2014 plan to find a good spot near today's stops.", "addr": null, "new": false, "k": "meal"}, {"s": "1:30 PM", "e": "2:00 PM", "t": "New College, Edinburgh", "n": "~7 min walk over folded in \u2014 historic university quad on the Mound", "addr": null, "new": false, "k": "sight"}, {"s": "2:00 PM", "e": "2:30 PM", "t": "Walk to Edinburgh Castle Esplanade", "n": "~9-10 min uphill + buffer", "addr": null, "new": false, "k": "transit"}, {"s": "2:30 PM", "e": null, "t": "Edinburgh Castle", "n": "esplanade & exterior) (Exterior/viewpoint only, to keep the day chill \u2014 swap in a 2 hr slot + pre-booked ticket if you'd rather do the full interior tour", "addr": null, "new": false, "k": "sight"}, {"s": null, "e": null, "t": "The Scotch Whisky Experience", "n": "~2 min walk from the previous stop \u2014 Right at Castlehill by the esplanade \u2014 non-drinking/tasting-free options available", "addr": "354 Castlehill, Royal Mile, Edinburgh EH1 2NE", "new": true, "k": "sight"}, {"s": null, "e": "3:00 PM", "t": "Writers' Museum", "n": "~3 min walk from the previous stop \u2014 Tucked just off Lawnmarket \u2014 free entry", "addr": "Lady Stair's Close, Lawnmarket, Edinburgh EH1 2PA", "new": true, "k": "sight"}, {"s": "3:00 PM", "e": "3:30 PM", "t": "St Giles' Cathedral", "n": "~7-8 min walk down the Royal Mile folded in", "addr": null, "new": false, "k": "sight"}, {"s": "3:30 PM", "e": "4:00 PM", "t": "Victoria Street & Grassmarket", "n": "~5 min walk over folded in \u2014 colorful curved street down into the historic square. Look for red door gallery, harry potter museum \u2014 keep an ear out for buskers/bagpipers along the Royal Mile all day, a classic Edinburgh moment", "addr": null, "new": false, "k": "sight"}, {"s": "4:00 PM", "e": "4:30 PM", "t": "The Vennel", "n": "~3 min walk over folded in \u2014 the classic postcard view of the Castle from the steps", "addr": null, "new": false, "k": "sight"}, {"s": "4:30 PM", "e": "5:00 PM", "t": "Greyfriars Kirkyard & Greyfriars Bobby Fountain", "n": "~5 min walk over folded in \u2014 optional coffee at The Elephant House right next door", "addr": null, "new": false, "k": "sight"}, {"s": null, "e": null, "t": "National Museum of Scotland", "n": "You asked to go inside (not just exterior) \u2014 right on Chambers Street next to Greyfriars, allow a real hour. ~2 min walk from Greyfriars.", "addr": "Chambers St, Edinburgh EH1 1JF", "new": true, "k": "sight"}, {"s": "5:00 PM", "e": "5:30 PM", "t": "Walk to Cockburn Street", "n": "~9-10 min via George IV Bridge / Royal Mile + buffer", "addr": null, "new": false, "k": "transit"}, {"s": "5:30 PM", "e": null, "t": "Cockburn Street & Waverley Bridge", "n": "~3-4 min walk over folded in \u2014 indie shops, then skyline views over Waverley to wrap up", "addr": null, "new": false, "k": "sight"}, {"s": null, "e": "6:00 PM", "t": "Tron Kirk", "n": "~3 min walk from the previous stop \u2014 Historic former church on the Royal Mile, sometimes hosting a craft market out front", "addr": "78 High St, Edinburgh EH1 1QS", "new": true, "k": "sight"}, {"s": "6:00 PM", "e": "7:00 PM", "t": "The Real Mary King's Close (~5 min walk up the Royal Mile from Cockburn Street folded in \u2014 guided tour through Edinburgh's hidden underground historic closes. Book ahead", "n": "Guided tour through Edinburgh's hidden underground historic closes, buried beneath the Royal Mile \u2014 book ahead, tickets required.", "addr": null, "new": false, "k": "sight"}, {"s": "7:00 PM", "e": "9:30 PM", "t": "DINNER \u2014 [spot TBD]", "n": "Restaurant not booked yet \u2014 plan to find a good spot near today's stops.", "addr": null, "new": false, "k": "meal"}, {"s": null, "e": null, "t": "Holyrood Palace", "n": "~12 min walk from the Old Town, down to the far end of the Royal Mile \u2014 exterior/forecourt view of the official residence, atmospheric lit up in the evening", "addr": "Canongate, Edinburgh EH8 8DX", "new": true, "k": "sight"}, {"s": null, "e": null, "t": "Holyrood Park", "n": "~2 min walk from the previous stop \u2014 Right next door \u2014 just the base of the park, not the Arthur's Seat climb", "addr": "Queen's Dr, Edinburgh EH8 8HG", "new": true, "k": "sight"}, {"s": "9:30 PM", "e": null, "t": "Hotel", "n": null, "addr": null, "new": false, "k": "travel"}]}, {"date": "2026-10-08", "dow": "Thursday", "city": "Edinburgh to London", "acts": [{"s": "7:00 AM", "e": "8:00 AM", "t": "Wkae up and get ready", "n": null, "addr": null, "new": false, "k": "travel"}, {"s": "8:00 AM", "e": "8:30 AM", "t": "BREAKFAST \u2014 [spot TBD]", "n": "Restaurant not booked yet \u2014 plan to find a good spot near today's stops.", "addr": null, "new": false, "k": "meal"}, {"s": "8:30 AM", "e": "9:00 AM", "t": "Scott Monument", "n": "~10-15 min walk from breakfast, depending on your spot \u2014 Scott Monument sits right on Princes Street", "addr": null, "new": false, "k": "sight"}, {"s": "9:00 AM", "e": "9:30 AM", "t": "Walk to Calton Hill", "n": "~10 min walk from Scott Monument", "addr": null, "new": false, "k": "transit"}, {"s": "9:30 AM", "e": "10:30 AM", "t": "Calton Hill", "n": "One of Edinburgh's best viewpoints, topped with the unfinished National Monument and the Nelson Monument \u2014 sweeping views over the city and the Firth of Forth.", "addr": null, "new": false, "k": "sight"}, {"s": "10:30 AM", "e": "11:00 AM", "t": "Walk back toward Old Town / Waverley and shopping", "n": "~10-12 min walk back from Calton Hill", "addr": null, "new": false, "k": "transit"}, {"s": "11:00 AM", "e": "12:00 PM", "t": "LUNCH \u2014 [spot TBD]", "n": "Restaurant not booked yet \u2014 plan to find a good spot near today's stops.", "addr": null, "new": false, "k": "meal"}, {"s": "12:00 PM", "e": "1:00 PM", "t": "Walk to train station", "n": "~5-10 min \u2014 Waverley Station is central, right by the Old Town", "addr": null, "new": false, "k": "transit"}, {"s": "1:00 PM", "e": "6:00 PM", "t": "Afternoon train back to London \u2014 [confirm booked departure]", "n": null, "addr": null, "new": false, "k": "travel"}, {"s": "6:00 PM", "e": "7:30 PM", "t": "DINNER \u2014 [spot TBD]", "n": "Restaurant not booked yet \u2014 plan to find a good spot near today's stops.", "addr": null, "new": false, "k": "meal"}, {"s": "7:30 PM", "e": null, "t": "Hotel", "n": null, "addr": null, "new": false, "k": "travel"}]}, {"date": "2026-10-09", "dow": "Friday", "city": "London to Paris", "acts": [{"s": "5:00 AM", "e": "8:00 AM", "t": "Puja Darshan", "n": "Morning temple visit and prayers before the day's sightseeing.", "addr": null, "new": false, "k": "sight"}, {"s": "8:00 AM", "e": "10:30 AM", "t": "Sleep in  hotel? get brunch and get to train", "n": "Relaxed morning \u2014 brunch before heading to St Pancras for the Eurostar to Paris.", "addr": null, "new": false, "k": "meal"}, {"s": null, "e": null, "t": "Buckingham Palace (exterior)", "n": "Walking time depends on your hotel \u2014 allow ~15-20 min from most central London hotels. Quick photo pass \u2014 the Changing of the Guard ceremony itself is already booked in properly for Oct 17, so this is just a glance", "addr": "Buckingham Palace, London SW1A 1AA", "new": true, "k": "sight"}, {"s": null, "e": null, "t": "Red telephone booth", "n": "~5 min walk from the previous stop \u2014 Classic photo pairing \u2014 a few are dotted around St James's/Westminster on the way", "addr": "St James's, London SW1", "new": true, "k": "sight"}, {"s": null, "e": null, "t": "Soho", "n": "~15 min walk from the previous stop \u2014 Continue through toward lunch \u2014 colourful, lively streets", "addr": "Soho, London W1", "new": true, "k": "sight"}, {"s": "11:30 AM", "e": "1:00 PM", "t": "Lunch", "n": "Lunch stop \u2014 restaurant not chosen yet.", "addr": null, "new": false, "k": "meal"}, {"s": "1:00 PM", "e": "3:00 PM", "t": "Get to Train Station and Get through customs and everything", "n": null, "addr": null, "new": false, "k": "travel"}, {"s": null, "e": null, "t": "Platform 9\u00be, King's Cross", "n": "~2 min walk from St Pancras where you catch the Eurostar \u2014 a natural stop on the way in", "addr": "King's Cross Station, Euston Rd, London N1 9AL", "new": true, "k": "sight"}, {"s": "3:00 PM", "e": "7:00 PM", "t": "Train to Paris", "n": null, "addr": null, "new": false, "k": "transit"}, {"s": "7:00 PM", "e": "7:30 PM", "t": "switch bags again and do laundry if needed", "n": "Repack for the next leg and do a laundry run if needed before heading to Paris.", "addr": null, "new": false, "k": "sight"}, {"s": "7:30 PM", "e": "8:30 PM", "t": "Dinner", "n": "Dinner stop \u2014 restaurant not chosen yet.", "addr": null, "new": false, "k": "meal"}, {"s": "8:30 PM", "e": "9:00 PM", "t": "Dessert", "n": "Sweet treat to cap off the day \u2014 spot not chosen yet.", "addr": null, "new": false, "k": "meal"}, {"s": "9:00 PM", "e": "9:30 PM", "t": "Uber back or he picks us up", "n": null, "addr": null, "new": false, "k": "transit"}, {"s": "9:30 PM", "e": null, "t": "Hotel", "n": null, "addr": null, "new": false, "k": "travel"}]}, {"date": "2026-10-10", "dow": "Saturday", "city": "Paris", "acts": [{"s": "7:00 AM", "e": "8:00 AM", "t": "Get Ready", "n": null, "addr": null, "new": false, "k": "travel"}, {"s": "8:00 AM", "e": "8:30 AM", "t": "BREAKFAST \u2014 Land&Monkeys", "n": " \u2014 ask for a terrace/outdoor table if the weather's good, classic Paris caf\u00e9 photo", "addr": null, "new": false, "k": "meal"}, {"s": "8:30 AM", "e": "9:00 AM", "t": "18min Walk to Sainte-Chapelle", "n": null, "addr": null, "new": false, "k": "transit"}, {"s": "9:00 AM", "e": "9:30 AM", "t": "Sainte-Chapelle", "n": "Added must-see \u2014 iconic stained glass, right by Notre-Dame. 45 min visit + line buffer; ~5 min walk to Notre-Dame after", "addr": null, "new": false, "k": "sight"}, {"s": "9:30 AM", "e": null, "t": "(5 min walk) Notre-Dame Cathedral (Exterior + interior (check reopened hours) \u2014 budget longer if the line is long)", "n": null, "addr": null, "new": false, "k": "sight"}, {"s": null, "e": "10:00 AM", "t": "Shakespeare and Company", "n": "~2 min walk from the previous stop \u2014 Legendary English-language bookshop directly across the river from Notre-Dame", "addr": "37 Rue de la B\u00fbcherie, 75005 Paris", "new": true, "k": "sight"}, {"s": "10:00 AM", "e": "10:30 AM", "t": "Walk to Louvre Museum", "n": "20min", "addr": null, "new": false, "k": "transit"}, {"s": "10:30 AM", "e": "11:30 AM", "t": "Louvre Museum", "n": "Highlights visit only \u2014 book timed entry in advance) and then Palais Royal (Right next to it", "addr": null, "new": false, "k": "sight"}, {"s": null, "e": null, "t": "Palais Royal & Gardens", "n": "You flagged this a must-add \u2014 right next to the Louvre, the arcaded garden with the striped Buren columns. ~5 min walk from the Louvre.", "addr": null, "new": false, "k": "sight"}, {"s": null, "e": null, "t": "Biblioth\u00e8que nationale de France (Richelieu site, exterior)", "n": "~6 min walk from the previous stop \u2014 Assuming the historic Richelieu site \u2014 flag if you meant the newer Fran\u00e7ois-Mitterrand site, which is far across town", "addr": "5 Rue Vivienne, 75002 Paris", "new": true, "k": "sight"}, {"s": "11:30 AM", "e": "12:00 PM", "t": "10min Walk to Longchamp store and Tuileries Garden", "n": null, "addr": null, "new": false, "k": "transit"}, {"s": "12:00 PM", "e": "12:30 PM", "t": "Longchamp Store", "n": "404 Rue Saint-Honor\u00e9", "addr": null, "new": false, "k": "sight"}, {"s": "12:30 PM", "e": null, "t": "Tuileries Garden / Place de la Concorde", "n": "Stroll through the garden to Concorde", "addr": null, "new": false, "k": "sight"}, {"s": null, "e": "1:00 PM", "t": "Angelina", "n": "~2 min walk from the previous stop \u2014 Famous tea room directly across Rue de Rivoli from the Tuileries \u2014 hot chocolate & pastries", "addr": "226 Rue de Rivoli, 75001 Paris", "new": true, "k": "sight"}, {"s": "1:00 PM", "e": "2:00 PM", "t": "Lunch", "n": "Lunch stop \u2014 restaurant not chosen yet.", "addr": null, "new": false, "k": "meal"}, {"s": "2:00 PM", "e": "2:30 PM", "t": "Walk to Pont Alexandre III - 15min", "n": null, "addr": null, "new": false, "k": "transit"}, {"s": "2:30 PM", "e": "3:00 PM", "t": "Pont Alexandre III", "n": "Photo stop; ~3 min walk to Grand Palais after", "addr": null, "new": false, "k": "sight"}, {"s": "3:00 PM", "e": null, "t": "(3min walk) Grand Palais (Exterior, or a current exhibit if booked)", "n": null, "addr": null, "new": false, "k": "sight"}, {"s": null, "e": "3:30 PM", "t": "Petit Palais", "n": "~2 min walk from the previous stop \u2014 Right across the small square from Grand Palais \u2014 you flagged this a must-add", "addr": "Av. Winston Churchill, 75008 Paris", "new": true, "k": "sight"}, {"s": "3:30 PM", "e": "4:00 PM", "t": "Walk up the Champs-\u00c9lys\u00e9es to Arc de Triomphe", "n": "30 min \u2014 this stretch IS the Champs-\u00c9lys\u00e9es, Paris's grand avenue", "addr": null, "new": false, "k": "transit"}, {"s": "4:00 PM", "e": "4:30 PM", "t": "Arc de Triomphe", "n": "book ahead) (Climb to the top for views (book ahead)", "addr": null, "new": false, "k": "sight"}, {"s": "4:30 PM", "e": "5:00 PM", "t": "22min Walk to Jardins du Trocad\u00e9ro", "n": null, "addr": null, "new": false, "k": "transit"}, {"s": "5:00 PM", "e": null, "t": "Jardins du Trocad\u00e9ro", "n": "eiffel tower viewpoint", "addr": null, "new": false, "k": "sight"}, {"s": null, "e": "5:30 PM", "t": "Palais de Tokyo / Mus\u00e9e d'Art Moderne (exterior)", "n": "~8 min walk from the previous stop \u2014 Along Avenue du Pr\u00e9sident Wilson", "addr": "13 Av. du Pr\u00e9sident Wilson, 75116 Paris", "new": true, "k": "sight"}, {"s": "5:30 PM", "e": "6:00 PM", "t": "10 min Walk to Eiffel Tower", "n": null, "addr": null, "new": false, "k": "transit"}, {"s": "6:00 PM", "e": "7:00 PM", "t": "Eiffel Tower", "n": "sunset", "addr": null, "new": false, "k": "sight"}, {"s": "7:00 PM", "e": "8:00 PM", "t": "DINNER \u2014 [spot TBD]", "n": "Restaurant not booked yet \u2014 plan to find a good spot near today's stops.", "addr": null, "new": false, "k": "meal"}, {"s": "8:00 PM", "e": "9:30 PM", "t": "Seine River Cruise (Night) \u2014 [operator TBD] Added must-see \u2014 illuminated bridges & the Eiffel Tower sparkle from the water. Boards at Port de la Bourdonnais (~5 min walk, folded in). e.g. Bateaux Parisiens \u2014 confirm your booking & departure time", "n": null, "addr": null, "new": false, "k": "travel"}, {"s": "9:30 PM", "e": null, "t": "Hotel", "n": null, "addr": null, "new": false, "k": "travel"}]}, {"date": "2026-10-11", "dow": "Sunday", "city": "Paris to Brussels", "acts": [{"s": "6:30 AM", "e": "8:00 AM", "t": "Get Ready", "n": null, "addr": null, "new": false, "k": "travel"}, {"s": "8:00 AM", "e": "8:30 AM", "t": "Breakfast", "n": "Breakfast \u2014 restaurant not chosen yet.", "addr": null, "new": false, "k": "meal"}, {"s": "8:30 AM", "e": "9:30 AM", "t": "Train to Paris Mandir", "n": "35min", "addr": null, "new": false, "k": "transit"}, {"s": "9:30 AM", "e": "10:30 AM", "t": "Mandir", "n": "Charenton-le-Pont \u2014 confirm darshan/visiting hours before you go (temple typically closed some midday hours", "addr": null, "new": false, "k": "sight"}, {"s": "10:30 AM", "e": "11:30 AM", "t": "Transit back to central Paris", "n": "8th arr.", "addr": null, "new": false, "k": "transit"}, {"s": "11:30 AM", "e": "12:30 PM", "t": "Lunch", "n": "Lunch stop \u2014 restaurant not chosen yet.", "addr": null, "new": false, "k": "meal"}, {"s": "12:30 PM", "e": "2:00 PM", "t": "cafe or roam paris or something", "n": "Open block \u2014 grab a caf\u00e9 stop or wander a nearby Paris neighborhood at your own pace.", "addr": null, "new": false, "k": "sight"}, {"s": "2:00 PM", "e": "3:00 PM", "t": "Travel to train station", "n": null, "addr": null, "new": false, "k": "transit"}, {"s": "3:00 PM", "e": "5:00 PM", "t": "Train from Paris \u2014 [confirm booked departure] to brussels 2 luggage pieces + backpack per person - 129$ total - 43$ per person", "n": null, "addr": null, "new": false, "k": "transit"}, {"s": "5:00 PM", "e": "5:30 PM", "t": "Arrive Brussels & transfer to hotel", "n": null, "addr": null, "new": false, "k": "travel"}, {"s": "5:30 PM", "e": "6:30 PM", "t": "Unwind at AirBnB", "n": "Downtime back at the Airbnb before heading back out for the evening.", "addr": null, "new": false, "k": "sight"}, {"s": "6:30 PM", "e": "8:00 PM", "t": "DINNER \u2014 [spot TBD]", "n": "Restaurant not booked yet \u2014 plan to find a good spot near today's stops.", "addr": null, "new": false, "k": "meal"}, {"s": "8:00 PM", "e": null, "t": "Hotel", "n": null, "addr": null, "new": false, "k": "travel"}]}, {"date": "2026-10-12", "dow": "Monday", "city": "Brussels", "acts": [{"s": "7:30 AM", "e": "9:00 AM", "t": "Get Ready", "n": null, "addr": null, "new": false, "k": "travel"}, {"s": "9:00 AM", "e": "9:30 AM", "t": "BREAKFAST \u2014 [spot TBD]", "n": "Restaurant not booked yet \u2014 plan to find a good spot near today's stops.", "addr": null, "new": false, "k": "meal"}, {"s": "9:30 AM", "e": "10:00 AM", "t": "Grand Place", "n": "~10-15 min walk from most central hotels \u2014 Brussels' stunning main square, one of the most beautiful in Europe. Ghent moved to a quick Wednesday-morning trip instead, so the historic core is back here", "addr": null, "new": false, "k": "sight"}, {"s": null, "e": null, "t": "Brussels Stock Exchange (La Bourse)", "n": "~4 min walk from Grand Place \u2014 recently restored, now a Belgian beer museum/visitor centre exterior", "addr": "Pl. de la Bourse, 1000 Bruxelles", "new": true, "k": "sight"}, {"s": null, "e": null, "t": "Place Sainte-Catherine", "n": "~5 min walk from the previous stop \u2014 A few minutes further \u2014 one of Brussels' prettiest squares, popular for seafood", "addr": "Pl. Sainte-Catherine, 1000 Bruxelles", "new": true, "k": "sight"}, {"s": "10:00 AM", "e": null, "t": "BELGIAN WAFFLES (eggless) \u2014 Galerie Agora 48, 1000 Bruxelles", "n": null, "addr": null, "new": false, "k": "sight"}, {"s": null, "e": "10:30 AM", "t": "Choco-Story Brussels (exterior)", "n": "~3 min walk from the previous stop \u2014 Chocolate museum right off Grand Place \u2014 you already have the Sablon chocolate tour later, so passing by only", "addr": "Rue de la T\u00eate d'Or 9, 1000 Bruxelles", "new": true, "k": "sight"}, {"s": "10:30 AM", "e": null, "t": "Town Hall & Galeries Royales Saint-Hubert", "n": "~2 min walk over folded in \u2014 the town hall's Gothic spire right on the square, then Europe's oldest covered shopping arcade just behind it", "addr": null, "new": false, "k": "sight"}, {"s": null, "e": null, "t": "Jeanneke Pis", "n": "~3 min walk from the previous stop \u2014 The \"sister\" statue, tucked in a small alley off Rue des Bouchers", "addr": "Impasse de la Fid\u00e9lit\u00e9, 1000 Bruxelles", "new": true, "k": "sight"}, {"s": null, "e": "11:00 AM", "t": "Passage du Nord", "n": "~8 min walk from the previous stop \u2014 A similar covered shopping gallery near Rue Neuve", "addr": "Passage du Nord, 1000 Bruxelles", "new": true, "k": "sight"}, {"s": "11:00 AM", "e": "11:30 AM", "t": "Manneken Pis", "n": "~5 min walk over folded in \u2014 Brussels' famously quirky little statue, often dressed in a costume", "addr": null, "new": false, "k": "sight"}, {"s": "11:30 AM", "e": "12:30 PM", "t": "LUNCH \u2014 [spot TBD]", "n": "Restaurant not booked yet \u2014 plan to find a good spot near today's stops.", "addr": null, "new": false, "k": "meal"}, {"s": "12:30 PM", "e": "1:00 PM", "t": "Mont des Arts", "n": "~5-8 min walk uphill over folded in \u2014 terraced gardens with a great view back over the old town's rooftops", "addr": null, "new": false, "k": "sight"}, {"s": "1:00 PM", "e": null, "t": "Royal Palace area & Brussels Park", "n": "~3-5 min walk over folded in \u2014 the formal park facing the Royal Palace", "addr": null, "new": false, "k": "sight"}, {"s": null, "e": "1:30 PM", "t": "Mary Chocolatier", "n": "~4 min walk from the previous stop \u2014 Historic royal-warrant chocolate shop on Rue Royale, right by the palace", "addr": "Rue Royale 73, 1000 Bruxelles", "new": true, "k": "sight"}, {"s": "1:30 PM", "e": "2:30 PM", "t": "Musical Instruments Museum", "n": "MIM) (right by the Royal Palace, in the striking Art Nouveau \"Old England\" building. The top-floor caf\u00e9 has one of the best panoramic views over Brussels", "addr": null, "new": false, "k": "sight"}, {"s": "2:30 PM", "e": "3:00 PM", "t": "St Michael and St Gudula Cathedral", "n": "~8-10 min walk over folded in \u2014 Brussels' Gothic cathedral", "addr": null, "new": false, "k": "sight"}, {"s": "3:00 PM", "e": "3:30 PM", "t": "Walk to the Sablon", "n": "~15-20 min + buffer", "addr": null, "new": false, "k": "transit"}, {"s": "3:30 PM", "e": null, "t": "Chocolate Tour & Tasting \u2014 Sablon", "n": "either book a guided Brussels chocolate tour (several run through the Sablon), or do it yourself hopping between Pierre Marcolini, Wittamer, Neuhaus, and Passion Chocolat for tastings", "addr": null, "new": false, "k": "sight"}, {"s": null, "e": "5:00 PM", "t": "Notre-Dame du Sablon", "n": "~1 min walk from the previous stop \u2014 The Gothic church right on Place du Grand Sablon", "addr": "Rue Bodenbroek 6, 1000 Bruxelles", "new": true, "k": "sight"}, {"s": "5:00 PM", "e": "5:30 PM", "t": "Walk to Palais de Justice", "n": "~5-10 min uphill + buffer", "addr": null, "new": false, "k": "transit"}, {"s": "5:30 PM", "e": "6:00 PM", "t": "Palais de Justice & Place Poelaert viewpoint", "n": "One of the largest courthouses in the world, and the square in front has one of the best panoramic views over the city \u2014 genuinely better at dusk anyway", "addr": null, "new": false, "k": "sight"}, {"s": "6:00 PM", "e": "7:00 PM", "t": "Belgian fries \u2014 [spot TBD] or dinner", "n": "A classic Belgian fries stop, or fold it into dinner \u2014 spot not chosen yet.", "addr": null, "new": false, "k": "meal"}, {"s": "7:00 PM", "e": "7:30 PM", "t": "Walk back to the Old Town", "n": "~10-12 min walk downhill from Palais de Justice back toward Grand Place", "addr": null, "new": false, "k": "transit"}, {"s": "7:30 PM", "e": "9:30 PM", "t": "DINNER \u2014 [spot TBD]", "n": "Restaurant not booked yet \u2014 plan to find a good spot near today's stops.", "addr": null, "new": false, "k": "meal"}, {"s": null, "e": null, "t": "Zinneke Pis", "n": "~10 min walk from the Old Town/Sablon area \u2014 the little bronze dog, Manneken Pis's playful \"cousin\", a good excuse for an after-dinner stroll back", "addr": "Rue des Chartreux 34, 1000 Bruxelles", "new": true, "k": "sight"}, {"s": null, "e": null, "t": "Belgian Comic Strip Center (exterior) + Tintin mural", "n": "~6 min walk from the previous stop \u2014 One of the murals on Brussels' Comic Book Route (Parcours BD) is right around here \u2014 a classic Tintin photo op, from your cutest-15 list", "addr": "Rue des Sables 20, 1000 Bruxelles", "new": true, "k": "sight"}, {"s": null, "e": null, "t": "Smurf mural/experience area", "n": "~1 min walk from the previous stop \u2014 Same block as the Comic Strip Center", "addr": "Rue des Sables, 1000 Bruxelles", "new": true, "k": "sight"}, {"s": null, "e": null, "t": "Grand Place at night", "n": "~8 min walk from the previous stop \u2014 Loop back through on the way to the hotel \u2014 illuminated Grand Place is one of your cutest-15 must-haves, and it's right on the way back", "addr": "Grand Place, 1000 Bruxelles", "new": true, "k": "sight"}, {"s": "9:30 PM", "e": null, "t": "Hotel", "n": null, "addr": null, "new": false, "k": "travel"}]}, {"date": "2026-10-13", "dow": "Tuesday", "city": "Brussels - Luxembourg - Brussels Tour", "acts": [{"s": "6:00 AM", "e": "7:00 AM", "t": "Get Ready", "n": null, "addr": null, "new": false, "k": "travel"}, {"s": "7:00 AM", "e": "7:30 AM", "t": "BREAKFAST \u2014 [spot TBD]", "n": "Restaurant not booked yet \u2014 plan to find a good spot near today's stops.", "addr": null, "new": false, "k": "meal"}, {"s": "7:30 AM", "e": "8:00 AM", "t": "Walk to tour pickup point", "n": "~10-15 min from most central Brussels hotels \u2014 confirm your exact pickup point once booked", "addr": null, "new": false, "k": "transit"}, {"s": "8:00 AM", "e": "10:30 AM", "t": "Luxembourg Day Tour departs \u2014 [operator TBD]", "n": null, "addr": null, "new": false, "k": "travel"}, {"s": "10:30 AM", "e": "12:30 PM", "t": "Guided walk \u2014 Luxembourg City Old Town", "n": "Booked guided tour \u2014 flagging the highlights worth asking your guide to include: Grand Ducal Palace, Notre-Dame Cathedral, Casemates du Bock, Chemin de la Corniche viewpoint, and the Adolphe Bridge. (Corniche, Adolphe Bridge, and P\u00e9trusse Valley are Luxembourg City landmarks \u2014 moved here from your Brussels list, not Brussels itself)", "addr": null, "new": false, "k": "sight"}, {"s": "12:30 PM", "e": "2:00 PM", "t": "Free time / LUNCH \u2014 [spot TBD] Matcha Lab", "n": "Open block \u2014 Matcha Lab is a nice nearby option if you want matcha or coffee.", "addr": null, "new": false, "k": "meal"}, {"s": "2:00 PM", "e": "2:30 PM", "t": "Grund riverside walk", "n": " \u2014 also a good vantage point for the P\u00e9trusse Valley just beyond", "addr": null, "new": false, "k": "sight"}, {"s": "2:30 PM", "e": "5:00 PM", "t": "Return journey to Brussels", "n": "Drive back from Luxembourg City to Brussels with the tour group.", "addr": null, "new": false, "k": "sight"}, {"s": "5:00 PM", "e": "5:30 PM", "t": "Arrive back in Brussels & transfer to hotel", "n": null, "addr": null, "new": false, "k": "travel"}, {"s": "5:30 PM", "e": "6:00 PM", "t": "Rest / freshen up", "n": "Quick break back at the hotel after the Luxembourg day trip, before heading back out.", "addr": null, "new": false, "k": "sight"}, {"s": "6:00 PM", "e": "8:30 PM", "t": "DINNER \u2014 [spot TBD]", "n": "Restaurant not booked yet \u2014 plan to find a good spot near today's stops.", "addr": null, "new": false, "k": "meal"}, {"s": "8:30 PM", "e": null, "t": "Hotel", "n": null, "addr": null, "new": false, "k": "travel"}]}, {"date": "2026-10-14", "dow": "Wednesday", "city": "Brussels - Ghent", "acts": [{"s": "6:00 AM", "e": "7:00 AM", "t": "Get Ready", "n": null, "addr": null, "new": false, "k": "travel"}, {"s": "7:00 AM", "e": "7:30 AM", "t": "BREAKFAST \u2014 [spot TBD]", "n": "Restaurant not booked yet \u2014 plan to find a good spot near today's stops.", "addr": null, "new": false, "k": "meal"}, {"s": "7:30 AM", "e": "8:00 AM", "t": "Train to Ghent", "n": "~35 min direct + short walk to the station", "addr": null, "new": false, "k": "transit"}, {"s": "8:00 AM", "e": "8:30 AM", "t": "Tram to Ghent city centre", "n": "~10 min tram + wait from Ghent-Sint-Pieters station + buffer", "addr": null, "new": false, "k": "transit"}, {"s": "8:30 AM", "e": null, "t": "Graslei & Korenlei", "n": "Ghent's iconic canal-front row of guild houses \u2014 one of the best views in Belgium", "addr": null, "new": false, "k": "sight"}, {"s": null, "e": null, "t": "Saint Michael's Bridge", "n": "~1 min walk from the previous stop \u2014 Standing on this bridge IS the classic Graslei/Korenlei photo", "addr": "Sint-Michielshelling, 9000 Gent", "new": true, "k": "sight"}, {"s": null, "e": null, "t": "Het Groot Vleeshuis", "n": "~2 min walk from the previous stop \u2014 The old medieval meat hall, right along the Graslei row", "addr": "Groentenmarkt 7, 9000 Gent", "new": true, "k": "sight"}, {"s": null, "e": null, "t": "Graffiti Street (Werregarenstraat)", "n": "~4 min walk from the previous stop \u2014 Ghent's ever-changing legal graffiti alley", "addr": "Werregarenstraat, 9000 Gent", "new": true, "k": "sight"}, {"s": null, "e": "9:00 AM", "t": "Vrijdagmarkt", "n": "~3 min walk from the previous stop \u2014 Historic market square a few minutes further", "addr": "Vrijdagmarkt, 9000 Gent", "new": true, "k": "sight"}, {"s": "9:00 AM", "e": "9:30 AM", "t": "Walk to Gravensteen Castle", "n": "~10 min along the canal + buffer", "addr": null, "new": false, "k": "transit"}, {"s": "9:30 AM", "e": null, "t": "Gravensteen Castle", "n": "Medieval castle right in the old town \u2014 climb the towers for the view. A genuinely quick version overall \u2014 skipping the cathedral and a sit-down lunch here to keep this to ~3 hours door-to-door", "addr": null, "new": false, "k": "sight"}, {"s": null, "e": "10:00 AM", "t": "Patershol", "n": "~2 min walk from the previous stop \u2014 The tiny cobblestone medieval quarter right behind Gravensteen Castle", "addr": "Patershol, 9000 Gent", "new": true, "k": "sight"}, {"s": null, "e": null, "t": "Ghent Belfry (Belfort)", "n": "One of the \"Three Towers\" \u2014 ~8 min walk from Gravensteen", "addr": "Sint-Baafsplein, 9000 Gent", "new": true, "k": "sight"}, {"s": null, "e": null, "t": "Saint Bavo's Cathedral", "n": "~1 min walk from the previous stop \u2014 Right next to the Belfry, home of the Ghent Altarpiece", "addr": "Sint-Baafsplein, 9000 Gent", "new": true, "k": "sight"}, {"s": null, "e": null, "t": "Korenmarkt / historic market square", "n": "~3 min walk from the previous stop \u2014 The main square linking back toward the train", "addr": "Korenmarkt, 9000 Gent", "new": true, "k": "sight"}, {"s": "10:00 AM", "e": "10:30 AM", "t": "Train back to Brussels", "n": "~35 min direct + buffer", "addr": null, "new": false, "k": "transit"}, {"s": "10:30 AM", "e": "11:00 AM", "t": "Metro to Atomium (Heysel) (Line 6 to Heysel/Atomium, ~20 min ride + buffer) or uber", "n": null, "addr": null, "new": false, "k": "transit"}, {"s": "11:00 AM", "e": "12:00 PM", "t": "Atomium", "n": "the iconic 1958 World's Fair structure; ride the escalator/elevator up into the spheres for sweeping city views", "addr": null, "new": false, "k": "sight"}, {"s": "12:00 PM", "e": "1:00 PM", "t": "Mini Europe", "n": "right next door in the same Bruparck complex, miniature versions of Europe's great landmarks", "addr": null, "new": false, "k": "sight"}, {"s": "1:00 PM", "e": "1:30 PM", "t": "Metro back to the city centre", "n": "~20-25 min + buffer", "addr": null, "new": false, "k": "transit"}, {"s": "1:30 PM", "e": "2:30 PM", "t": "LUNCH \u2014 Plant A Pizza", "n": "Vegan-friendly pizza spot.", "addr": null, "new": false, "k": "meal"}, {"s": "2:30 PM", "e": "3:00 PM", "t": "Tram to Avenue Louise", "n": "~20-25 min with a transfer + buffer", "addr": null, "new": false, "k": "transit"}, {"s": "3:00 PM", "e": "4:00 PM", "t": "Avenue Louise", "n": "most boutiques here close by 6-6:30pm, well before the old 6:00 PM slot would have let you actually shop", "addr": null, "new": false, "k": "sight"}, {"s": "4:00 PM", "e": "4:30 PM", "t": "Tram to Schuman", "n": "European Quarter) (~25-30 min with a transfer + buffer", "addr": null, "new": false, "k": "transit"}, {"s": "4:30 PM", "e": "5:00 PM", "t": "Quartier Europ\u00e9en", "n": "European Parliament and the Berlaymont \u2014 exteriors, a look at the seat of the EU", "addr": null, "new": false, "k": "sight"}, {"s": "5:00 PM", "e": "6:00 PM", "t": "Parc du Cinquantenaire", "n": "Right next door \u2014 the great Triumphal Arch and lovely grounds; the Royal Museum of Art and History is here too if you want to duck inside", "addr": null, "new": false, "k": "sight"}, {"s": "6:00 PM", "e": "6:30 PM", "t": "Tram/metro back to the city centre", "n": "~20-25 min + buffer", "addr": null, "new": false, "k": "transit"}, {"s": "6:30 PM", "e": "8:30 PM", "t": "DINNER \u2014 [spot TBD]", "n": "Restaurant not booked yet \u2014 plan to find a good spot near today's stops.", "addr": null, "new": false, "k": "meal"}, {"s": "8:30 PM", "e": null, "t": "Hotel", "n": null, "addr": null, "new": false, "k": "travel"}]}, {"date": "2026-10-15", "dow": "Thursday", "city": "Brussels to Amsterdam", "acts": [{"s": "6:00 AM", "e": "7:00 AM", "t": "Get Ready", "n": null, "addr": null, "new": false, "k": "travel"}, {"s": "7:00 AM", "e": "8:00 AM", "t": "Get to Train station", "n": "Head to the station to begin the trip toward Amsterdam.", "addr": null, "new": false, "k": "sight"}, {"s": "8:00 AM", "e": "11:00 AM", "t": "Leave for netherlands", "n": "Travel day from Brussels to Amsterdam by train.", "addr": null, "new": false, "k": "sight"}, {"s": "11:00 AM", "e": "11:30 AM", "t": "Hotel check-in / drop bags", "n": null, "addr": null, "new": false, "k": "travel"}, {"s": "11:30 AM", "e": "12:30 PM", "t": "BRUNCH \u2014 [vegan spot TBD]", "n": "Restaurant not booked yet \u2014 plan to find a vegan-friendly spot near today's stops.", "addr": null, "new": false, "k": "meal"}, {"s": "12:30 PM", "e": null, "t": "Rijksmuseum", "n": "the Gallery of Honour (Rembrandt's Night Watch, Vermeer's Milkmaid) is the essential stretch", "addr": null, "new": false, "k": "sight"}, {"s": null, "e": null, "t": "Van Gogh Museum (exterior)", "n": "~3 min walk from the previous stop \u2014 Right across Museumplein from the Rijksmuseum \u2014 exterior only per your default rule", "addr": "Museumplein 6, 1071 DJ Amsterdam", "new": true, "k": "sight"}, {"s": null, "e": "1:30 PM", "t": "Moco Museum (exterior)", "n": "~4 min walk from the previous stop \u2014 Also on Museumplein", "addr": "Honthorststraat 20, 1071 DE Amsterdam", "new": true, "k": "sight"}, {"s": "1:30 PM", "e": "2:00 PM", "t": "Vondelpark stroll", "n": "Right next to the museum, Amsterdam's best-loved park", "addr": null, "new": false, "k": "sight"}, {"s": "2:00 PM", "e": "2:30 PM", "t": "Tram to the Red Light District", "n": "~15-20 min + buffer", "addr": null, "new": false, "k": "transit"}, {"s": "2:30 PM", "e": null, "t": "Red Light District", "n": "daytime walk-through)  (De Wallen \u2014 atmospheric even in daylight, and right by Centraal", "addr": null, "new": false, "k": "sight"}, {"s": null, "e": "3:00 PM", "t": "Oudemanhuispoort", "n": "~5 min walk from the previous stop \u2014 Historic covered book-market alley near the university, right in this area", "addr": "Oudemanhuispoort, Amsterdam", "new": true, "k": "sight"}, {"s": "3:00 PM", "e": "3:30 PM", "t": "Walk to Eye Film Museum", "n": "~5 min free ferry from right behind Centraal + buffer", "addr": null, "new": false, "k": "transit"}, {"s": "3:30 PM", "e": "4:00 PM", "t": "Eye Film Museum", "n": "Swapped in for A'DAM Lookout per your request \u2014 same free ferry crossing, right on the waterfront, just skipping the paid viewing deck", "addr": null, "new": false, "k": "sight"}, {"s": "4:00 PM", "e": null, "t": "LUNCH \u2014 [vegan spot TBD]", "n": "Restaurant not booked yet \u2014 plan to find a vegan-friendly spot near today's stops.", "addr": null, "new": false, "k": "meal"}, {"s": "4:30 PM", "e": "5:00 PM", "t": "Walk toward Dam / Tony's Chocolonely", "n": "~10-15 min from Centraal + buffer", "addr": null, "new": false, "k": "transit"}, {"s": "5:00 PM", "e": null, "t": "Tony's Chocolonely Super Store", "n": "Make your own Tony's chocolate bar; the make-your-own experience may need booking, check ahead", "addr": null, "new": false, "k": "sight"}, {"s": null, "e": "5:30 PM", "t": "Dam Square", "n": "~2 min walk from the previous stop \u2014 You're already walking right past/through it on the way to Tony's Chocolonely", "addr": "Dam, Amsterdam", "new": true, "k": "sight"}, {"s": "5:30 PM", "e": "6:00 PM", "t": "Walk to De Negen Straatjes", "n": "9 Streets) (~10 min west from the Dam area + buffer", "addr": null, "new": false, "k": "transit"}, {"s": "6:00 PM", "e": null, "t": "De Negen Straatjes", "n": "9 Streets) (Boutique shopping streets linking the canal ring to the Jordaan \u2014 continuing the same westward walk, no doubling back", "addr": null, "new": false, "k": "sight"}, {"s": null, "e": null, "t": "Begijnhof", "n": "~4 min walk from the previous stop \u2014 Hidden, peaceful courtyard just off Spui", "addr": "Begijnhof, 1012 WX Amsterdam", "new": true, "k": "sight"}, {"s": null, "e": null, "t": "Bloemenmarkt", "n": "~3 min walk from the previous stop \u2014 Floating flower market along Singel, on the way", "addr": "Singel, Amsterdam", "new": true, "k": "sight"}, {"s": null, "e": "6:30 PM", "t": "Cat Boat (Poezenboot)", "n": "~2 min walk from the previous stop \u2014 A houseboat cat sanctuary on Singel", "addr": "Singel 38, Amsterdam", "new": true, "k": "sight"}, {"s": "6:30 PM", "e": "7:30 PM", "t": "Canal Cruise \u2014 Sunset (Dock near the Prinsengracht/9 Streets area \u2014 sunset (~6:45 PM in mid-October) falls near the start of the cruise", "n": " \u2014 keep an eye out for the Magere Brug (Skinny Bridge), a classic highlight on most routes", "addr": null, "new": false, "k": "sight"}, {"s": "7:30 PM", "e": "9:00 PM", "t": "DINNER \u2014 [vegan spot TBD]", "n": "Restaurant not booked yet \u2014 plan to find a vegan-friendly spot near today's stops.", "addr": null, "new": false, "k": "meal"}, {"s": "9:00 PM", "e": null, "t": "Anne Frank House (exterior only)", "n": "Exterior/canal-side photo only, per your request \u2014 no need to book a timed ticket since you're not going inside", "addr": null, "new": false, "k": "sight"}, {"s": null, "e": "9:30 PM", "t": "Brouwersgracht", "n": "~4 min walk from the previous stop \u2014 One of Amsterdam's most photogenic canals, right at the edge of the Jordaan here \u2014 great spot for the classic bike-leaning-on-a-canal-bridge photo", "addr": "Brouwersgracht, Amsterdam", "new": true, "k": "sight"}, {"s": "9:30 PM", "e": null, "t": "Hotel", "n": null, "addr": null, "new": false, "k": "travel"}]}, {"date": "2026-10-16", "dow": "Friday", "city": "Amsterdam to London", "acts": [{"s": "6:00 AM", "e": "7:00 AM", "t": "Get Ready", "n": null, "addr": null, "new": false, "k": "travel"}, {"s": "7:00 AM", "e": "8:00 AM", "t": "BREAKFAST \u2014 [vegan spot TBD]", "n": "Restaurant not booked yet \u2014 plan to find a vegan-friendly spot near today's stops.", "addr": null, "new": false, "k": "meal"}, {"s": "8:00 AM", "e": "8:30 AM", "t": "Check out & store luggage at Centraal", "n": null, "addr": null, "new": false, "k": "travel"}, {"s": "8:30 AM", "e": "9:00 AM", "t": "Train to Zaandam", "n": "~17 min direct train + buffer", "addr": null, "new": false, "k": "transit"}, {"s": "9:00 AM", "e": "9:30 AM", "t": "Zaandam \u2014 Inntel Hotel & town centre", "n": "The Inntel Hotel's facade of stacked, tilted traditional Zaandam houses is a genuinely striking, very photogenic landmark", "addr": null, "new": false, "k": "travel"}, {"s": "9:30 AM", "e": "10:00 AM", "t": "Train + walk to Zaanse Schans", "n": "~5 min train to Zaandijk-Zaanse Schans, then ~15-20 min walk + buffer", "addr": null, "new": false, "k": "transit"}, {"s": "10:00 AM", "e": "11:00 AM", "t": "Zaanse Schans \u2014 windmills", "n": "Iconic working windmills and a picturesque preserved Dutch village, great photos", "addr": null, "new": false, "k": "sight"}, {"s": "11:00 AM", "e": "11:30 AM", "t": "Cheese farm & tasting", "n": "Catharina Hoeve) (Right in the village, with demonstrations and tastings. A hands-on class may need pre-booking, worth checking \u2014 trimmed to 30 min per your request", "addr": null, "new": false, "k": "sight"}, {"s": "12:00 PM", "e": "1:00 PM", "t": "Walk + train back to Amsterdam Centraal", "n": "~15-20 min walk + ~17 min train + buffer", "addr": null, "new": false, "k": "transit"}, {"s": "1:00 PM", "e": "2:00 PM", "t": "LUNCH \u2014 [vegan spot TBD]", "n": "Restaurant not booked yet \u2014 plan to find a vegan-friendly spot near today's stops.", "addr": null, "new": false, "k": "meal"}, {"s": "2:00 PM", "e": "3:00 PM", "t": "Last-minute souvenir shopping near Centraal", "n": "A final pass through the shops near Amsterdam Centraal before picking up your luggage.", "addr": null, "new": false, "k": "sight"}, {"s": "3:00 PM", "e": "4:30 PM", "t": "Pick up luggage & head to the platform", "n": "everything today is timed to get you on the 4:40 PM train with a few minutes to spare", "addr": null, "new": false, "k": "travel"}, {"s": "4:30 PM", "e": "9:00 PM", "t": "Leave Amsterdam \u2014 train departs 4:40 PM", "n": null, "addr": null, "new": false, "k": "travel"}, {"s": "9:30 PM", "e": null, "t": "Hotel", "n": null, "addr": null, "new": false, "k": "travel"}]}, {"date": "2026-10-17", "dow": "Saturday", "city": "London", "acts": [{"s": "7:00 AM", "e": "8:00 AM", "t": "Get Ready", "n": null, "addr": null, "new": false, "k": "travel"}, {"s": "8:00 AM", "e": "8:30 AM", "t": "BREAKFAST \u2014 [spot TBD]", "n": "Restaurant not booked yet \u2014 plan to find a good spot near today's stops.", "addr": null, "new": false, "k": "meal"}, {"s": "8:30 AM", "e": "9:00 AM", "t": "Travel to Notting Hill", "n": "~20-25 min tube + buffer", "addr": null, "new": false, "k": "transit"}, {"s": "9:00 AM", "e": null, "t": "Notting Hill / Portobello Road Market", "n": "Saturday is the best day for this \u2014 the market is in full swing, colorful houses throughout the neighbourhood", "addr": null, "new": false, "k": "sight"}, {"s": null, "e": "10:00 AM", "t": "Kensington Gardens & Hyde Park (pass-through)", "n": "~5 min walk from the previous stop \u2014 A scenic walk toward Buckingham Palace instead of the tube \u2014 quick photo pass, not a full stop, to protect the ~11am Guard ceremony", "addr": "Kensington Gardens, London W2", "new": true, "k": "sight"}, {"s": "10:00 AM", "e": "10:30 AM", "t": "Travel to Buckingham Palace", "n": "~20-25 min tube/bus + buffer \u2014 take a bus instead of the tube if one runs this route, and grab the upstairs front seat: classic red double-decker photo, from your cutest-15 list", "addr": null, "new": false, "k": "transit"}, {"s": "10:30 AM", "e": "11:30 AM", "t": "Buckingham Palace \u2014 Changing of the Guard", "n": "Ceremony is usually ~11:00 AM on scheduled days \u2014 it doesn't run daily, confirm the schedule for your date before counting on it", "addr": null, "new": false, "k": "sight"}, {"s": "11:30 AM", "e": null, "t": "Horse Guards Parade", "n": "~10-15 min walk via St James's Park", "addr": null, "new": false, "k": "sight"}, {"s": null, "e": null, "t": "Trafalgar Square", "n": "~5 min walk from the previous stop \u2014 Right on the way from Horse Guards Parade to Big Ben", "addr": "Trafalgar Square, London WC2N", "new": true, "k": "sight"}, {"s": null, "e": "12:00 PM", "t": "Churchill War Rooms (exterior)", "n": "~5 min walk from the previous stop \u2014 Entrance only, per your default outside rule \u2014 a proper visit needs booking + more time", "addr": "Clive Steps, King Charles St, London SW1A 2AQ", "new": true, "k": "sight"}, {"s": "12:00 PM", "e": "12:30 PM", "t": "Big Ben & Parliament Square", "n": "~10 min walk over folded in \u2014 classic photo pairing: red phone booth + Big Ben, plenty around Parliament Square", "addr": null, "new": false, "k": "sight"}, {"s": "12:30 PM", "e": "1:30 PM", "t": "Westminster Abbey", "n": "Moved here from Sunday \u2014 confirm Saturday opening hours, they can run shorter than weekdays with an earlier last entry", "addr": null, "new": false, "k": "sight"}, {"s": "1:30 PM", "e": "2:00 PM", "t": "Victoria Tower Gardens", "n": "Moved here from Sunday \u2014 right next to Parliament, with the Buxton Memorial and a Rodin sculpture", "addr": null, "new": false, "k": "sight"}, {"s": "2:00 PM", "e": "3:00 PM", "t": "LUNCH \u2014 [spot TBD]", "n": "Restaurant not booked yet \u2014 plan to find a good spot near today's stops.", "addr": null, "new": false, "k": "meal"}, {"s": "3:00 PM", "e": "3:30 PM", "t": "Travel to Covent Garden", "n": "~15-20 min walk or a short tube ride + buffer", "addr": null, "new": false, "k": "transit"}, {"s": "3:30 PM", "e": null, "t": "Covent Garden", "n": "Market hall, street performers", "addr": null, "new": false, "k": "sight"}, {"s": null, "e": null, "t": "Piccadilly Circus", "n": "~8 min walk from the previous stop \u2014 A few minutes from Covent Garden/Seven Dials", "addr": "Piccadilly Circus, London W1", "new": true, "k": "sight"}, {"s": null, "e": null, "t": "Chinatown", "n": "~3 min walk from the previous stop \u2014 Same West End cluster", "addr": "Chinatown, London W1D", "new": true, "k": "sight"}, {"s": null, "e": null, "t": "Soho", "n": "~2 min walk from the previous stop \u2014 Same area", "addr": "Soho, London W1", "new": true, "k": "sight"}, {"s": null, "e": null, "t": "Regent Street", "n": "~5 min walk from the previous stop \u2014 A short walk over", "addr": "Regent St, London W1", "new": true, "k": "sight"}, {"s": null, "e": "4:00 PM", "t": "Oxford Street", "n": "~5 min walk from the previous stop \u2014 Same shopping cluster", "addr": "Oxford St, London W1", "new": true, "k": "sight"}, {"s": "4:00 PM", "e": "4:30 PM", "t": "Seven Dials", "n": "~5 min walk over folded in \u2014 trendy shopping streets converging at a sundial pillar", "addr": null, "new": false, "k": "sight"}, {"s": "4:30 PM", "e": "5:00 PM", "t": "Neal's Yard", "n": "~3 min walk over folded in \u2014 tiny, colorful hidden courtyard", "addr": null, "new": false, "k": "sight"}, {"s": "5:00 PM", "e": "5:30 PM", "t": "Travel to the City", "n": "Leadenhall Market)(~15-20 min tube + buffer", "addr": null, "new": false, "k": "transit"}, {"s": "5:30 PM", "e": "6:00 PM", "t": "Leadenhall Market", "n": "Historic Victorian arcade \u2014 also used as a filming location for Diagon Alley", "addr": null, "new": false, "k": "sight"}, {"s": null, "e": null, "t": "St Paul's Cathedral (exterior)", "n": "On the way from Leadenhall Market toward Tower Bridge \u2014 ~12 min walk", "addr": "St Paul's Churchyard, London EC4M 8AD", "new": true, "k": "sight"}, {"s": "6:00 PM", "e": null, "t": "Tower Bridge", "n": "~15 min walk over folded in", "addr": null, "new": false, "k": "sight"}, {"s": null, "e": "6:30 PM", "t": "St Dunstan in the East", "n": "~4 min walk from the previous stop \u2014 A beautiful ruined church garden just a few minutes from Tower Bridge/Monument", "addr": "St Dunstan's Hill, London EC3R 5DD", "new": true, "k": "sight"}, {"s": "6:30 PM", "e": "7:00 PM", "t": "Tower of London", "n": "exterior/grounds) (Last admission for the Crown Jewels/inside is ~5:00 PM, so this is an outside look only at this hour \u2014 swap today's order if going inside matters more to you than the Guard ceremony", "addr": null, "new": false, "k": "sight"}, {"s": "7:00 PM", "e": "8:00 PM", "t": "The Shard \u2014 View from The Shard", "n": "~15-20 min walk across Tower Bridge \u2014 open late, spectacular at night", "addr": null, "new": false, "k": "sight"}, {"s": "8:00 PM", "e": "9:30 PM", "t": "DINNER \u2014 [spot TBD]", "n": "Restaurant not booked yet \u2014 plan to find a good spot near today's stops.", "addr": null, "new": false, "k": "meal"}, {"s": "9:30 PM", "e": null, "t": "Hotel", "n": null, "addr": null, "new": false, "k": "travel"}]}, {"date": "2026-10-18", "dow": "Sunday", "city": "London to Airport", "acts": [{"s": "7:00 AM", "e": "8:00 AM", "t": "Get Ready", "n": null, "addr": null, "new": false, "k": "travel"}, {"s": "8:00 AM", "e": "8:30 AM", "t": "BREAKFAST \u2014 [spot TBD]", "n": "Restaurant not booked yet \u2014 plan to find a good spot near today's stops.", "addr": null, "new": false, "k": "meal"}, {"s": "8:30 AM", "e": "9:00 AM", "t": "Travel to Camden Market", "n": "~20-25 min tube + buffer", "addr": null, "new": false, "k": "transit"}, {"s": "9:00 AM", "e": null, "t": "Camden Markets", "n": "Some stalls don't open until 10-11 AM, but the main market and food stalls are usually going by now", "addr": null, "new": false, "k": "sight"}, {"s": null, "e": "10:00 AM", "t": "Primrose Hill", "n": "~12 min walk from the previous stop \u2014 A short walk from Camden \u2014 great skyline view", "addr": "Primrose Hill, London NW1", "new": true, "k": "sight"}, {"s": "10:00 AM", "e": "10:30 AM", "t": "Travel to the British Museum", "n": "~15-20 min tube + buffer", "addr": null, "new": false, "k": "transit"}, {"s": "10:30 AM", "e": "12:00 PM", "t": "British Museum", "n": "Prioritized over the V&A given today's time crunch \u2014 Rosetta Stone, Egyptian galleries, Parthenon marbles. Swap for the V&A if you'd rather", "addr": null, "new": false, "k": "sight"}, {"s": "12:00 PM", "e": "12:30 PM", "t": "Travel to Leicester Square", "n": "~15-20 min walk or tube + buffer", "addr": null, "new": false, "k": "transit"}, {"s": "12:30 PM", "e": "1:00 PM", "t": "LEGO Store, Leicester Square", "n": "A fun, quick stop", "addr": null, "new": false, "k": "sight"}, {"s": "1:00 PM", "e": "2:00 PM", "t": "LUNCH \u2014 [spot TBD]", "n": "Leicester Square / Covent Garden area", "addr": null, "new": false, "k": "meal"}, {"s": "2:00 PM", "e": "2:30 PM", "t": "Travel to the South Bank", "n": "~15-20 min walk or tube + buffer", "addr": null, "new": false, "k": "transit"}, {"s": "2:30 PM", "e": "3:00 PM", "t": "London Eye", "n": "Book a timed slot in advance \u2014 the ride itself takes ~30 min", "addr": null, "new": false, "k": "sight"}, {"s": "3:00 PM", "e": null, "t": "South Bank walk", "n": "Riverside walk past street performers, book stalls, and skyline views", "addr": null, "new": false, "k": "sight"}, {"s": null, "e": "3:30 PM", "t": "London Bridge", "n": "~5 min walk from the previous stop \u2014 Just along the river from Tower Bridge, part of this same walk", "addr": "London Bridge, London SE1", "new": true, "k": "sight"}, {"s": "3:30 PM", "e": "4:00 PM", "t": "Travel to Sky Garden", "n": "~15-20 min + buffer", "addr": null, "new": false, "k": "transit"}, {"s": "4:00 PM", "e": "4:30 PM", "t": "Sky Garden", "n": "Free, but needs a pre-booked timed ticket \u2014 book this before the day. First thing to cut if you're running behind", "addr": null, "new": false, "k": "sight"}, {"s": "4:30 PM", "e": "5:00 PM", "t": "Travel to hotel & collect luggage", "n": null, "addr": null, "new": false, "k": "transit"}, {"s": "5:00 PM", "e": "6:00 PM", "t": "Travel to Heathrow Airport", "n": null, "addr": null, "new": false, "k": "transit"}, {"s": "6:00 PM", "e": "9:30 PM", "t": "Be at airport and check in and everything", "n": null, "addr": null, "new": false, "k": "travel"}, {"s": "9:30 PM", "e": "11:30 PM", "t": "Flight from London Heathrow to ICeland: 9:30pm - 11:30pm", "n": null, "addr": null, "new": false, "k": "transit"}, {"s": "11:30 PM", "e": null, "t": "Get to Hotel", "n": null, "addr": null, "new": false, "k": "travel"}]}, {"date": "2026-10-19", "dow": "Monday", "city": "Iceland Layover", "acts": [{"s": "8:00 AM", "e": "8:30 AM", "t": "Wander central Reykjav\u00edk", "n": "Colorful houses and street art throughout downtown \u2014 no fixed stop needed, just wander toward Hallgr\u00edmskirkja", "addr": null, "new": false, "k": "sight"}, {"s": "8:30 AM", "e": "9:00 AM", "t": "Sun voyageour", "n": "S\u00f3lfar (Sun Voyager) \u2014 a striking steel sculpture of a Viking ship on the Reykjav\u00edk waterfront, one of the city's most photographed landmarks.", "addr": null, "new": false, "k": "sight"}, {"s": "9:00 AM", "e": null, "t": "hallgrimskirkja", "n": null, "addr": null, "new": false, "k": "sight"}, {"s": null, "e": "9:30 AM", "t": "Rainbow Street (Sk\u00f3lav\u00f6r\u00f0ust\u00edgur)", "n": "~1 min walk from the previous stop \u2014 The rainbow-painted street leading right up to Hallgr\u00edmskirkja", "addr": "Sk\u00f3lav\u00f6r\u00f0ust\u00edgur, 101 Reykjav\u00edk", "new": true, "k": "sight"}, {"s": "9:30 AM", "e": null, "t": "harpa concert hall", "n": null, "addr": null, "new": false, "k": "sight"}, {"s": null, "e": "10:00 AM", "t": "Old Harbour", "n": "~6 min walk from the previous stop \u2014 A short walk from Harpa along the waterfront", "addr": "Old Harbour, Reykjav\u00edk", "new": true, "k": "sight"}, {"s": "10:00 AM", "e": "10:30 AM", "t": "Cute Icelandic caf\u00e9 \u2014 coffee break", "n": "A relaxed stop, from your photo-spot list \u2014 now that the Golden Circle isn't happening, there's real time for it", "addr": "Reykjav\u00edk city centre", "new": true, "k": "sight"}, {"s": "10:30 AM", "e": "11:30 AM", "t": "Perlan (ice cave exhibit + observation deck)", "n": "~10-15 min from the city centre \u2014 a great indoor stop with a real hour to spend, from your photo-spot list", "addr": "Varmahl\u00ed\u00f0 1, 105 Reykjav\u00edk", "new": true, "k": "sight"}, {"s": "11:30 AM", "e": "12:00 PM", "t": "Walk back to the city centre", "n": "~15-20 min from Perlan back to Laugavegur/downtown", "addr": "Reykjav\u00edk city centre", "new": true, "k": "sight"}, {"s": "12:00 PM", "e": "1:00 PM", "t": "LUNCH \u2014 [vegan spot TBD]", "n": "Restaurant not booked yet \u2014 plan to find a vegan-friendly spot near today's stops.", "addr": null, "new": false, "k": "meal"}, {"s": "1:00 PM", "e": null, "t": "Laugavegur shopping street", "n": "Reykjav\u00edk's main shopping street \u2014 Icelandic design, wool sweaters, souvenirs", "addr": "Laugavegur, 101 Reykjav\u00edk", "new": true, "k": "sight"}, {"s": null, "e": null, "t": "Icelandic wool & design shop (lopapeysa sweaters)", "n": "~10 min walk from the previous stop \u2014 A genuine Icelandic wool sweater is one of the classic things to bring home \u2014 several good shops right along Laugavegur", "addr": "Laugavegur, 101 Reykjav\u00edk", "new": true, "k": "sight"}, {"s": null, "e": "3:00 PM", "t": "Sk\u00f3lav\u00f6r\u00f0ust\u00edgur (Rainbow Street) \u2014 last photos", "n": "~10 min walk from the previous stop \u2014 Back past the rainbow street for final photos and any last boutique shopping", "addr": "Sk\u00f3lav\u00f6r\u00f0ust\u00edgur, 101 Reykjav\u00edk", "new": true, "k": "sight"}, {"s": "3:00 PM", "e": "5:00 PM", "t": "Get to airport latest", "n": null, "addr": null, "new": false, "k": "travel"}, {"s": "5:00 PM", "e": "8:00 PM", "t": "Iceland to EWR: 5:00pm - 7:15pm", "n": "Final flight home, Keflav\u00edk to Newark.", "addr": null, "new": false, "k": "sight"}, {"s": "8:00 PM", "e": "9:30 PM", "t": "any parents will pick us up", "n": null, "addr": null, "new": false, "k": "sight"}, {"s": "9:30 PM", "e": null, "t": "Home", "n": null, "addr": null, "new": false, "k": "sight"}]}];
+const FLIGHTS = [{"date": "2026-10-02", "route": "Newark (EWR) \u2192 Keflav\u00edk (KEF)", "depart": "8:20 PM", "arrive": "6:15 AM (+1)", "note": "Overnight flight \u2014 bring dinner from home.", "cost": null}, {"date": "2026-10-03", "route": "Keflav\u00edk (KEF) \u2192 London Heathrow (LHR)", "depart": "4:10 PM", "arrive": "8:30 PM", "note": "Afternoon hop after the Blue Lagoon.", "cost": null}, {"date": "2026-10-18", "route": "London Heathrow (LHR) \u2192 Keflav\u00edk (KEF)", "depart": "9:30 PM", "arrive": "11:30 PM", "note": "Late flight back into Iceland for the layover.", "cost": null}, {"date": "2026-10-19", "route": "Keflav\u00edk (KEF) \u2192 Newark (EWR)", "depart": "5:00 PM", "arrive": "7:15 PM", "note": "Final flight home.", "cost": null}];
+const FLIGHTS_SUMMARY = {"total": 1828.89, "per_person": 609.63, "bag_fee_total": 80.0, "bag_fee_per_person": 40.0, "who_paid": "Parthika", "note": "Booked as one combined itinerary (all 4 legs) \u2014 cost isn't broken out per leg."};
+const HOTELS = [{"checkin": "2026-10-04", "checkout": "2026-10-05", "city": "London", "name": "Holiday Inn London West", "address": "4 Portal Way, London, England, W3 6RT, United Kingdom", "cost": 384.0, "per_person": 128.0, "link": "https://www.expedia.com/London-Hotels-Holiday-Inn-London-West.h1060091.Hotel-Information", "who_paid": "Yogesh", "refund_by": "before Sept 26", "status": "booked"}, {"checkin": "2026-10-06", "checkout": "2026-10-09", "city": "Edinburgh", "name": "Brae Guesthouse", "address": "119 Willowbrae Rd, Edinburgh EH8 7HN, UK", "cost": 514.0, "per_person": 171.33, "link": "https://www.expedia.com/Edinburgh-Hotels-Brae-Guesthouse.h41260348.Hotel-Information", "who_paid": "Yogesh", "refund_by": "before Sept 21", "status": "booked"}, {"checkin": "2026-10-09", "checkout": "2026-10-10", "city": "London", "name": "Not booked yet", "address": "NEed to Book", "cost": null, "per_person": null, "link": null, "who_paid": "Yogesh", "refund_by": null, "status": "NEEDS BOOKING"}, {"checkin": "2026-10-10", "checkout": "2026-10-11", "city": "Paris", "name": "Campanile Paris Ouest Pont de Suresnes", "address": "15 Boulevard Henri Sellier, Suresnes, Hauts-de-Seine, 92150, France", "cost": 401.0, "per_person": 133.67, "link": "https://www.expedia.com/Paris-Hotels-Campanile-Paris-Ouest-Pont-De-Suresnes.h1177533.Hotel-Information", "who_paid": "Yogesh", "refund_by": "before Sept 25", "status": "booked"}, {"checkin": "2026-10-11", "checkout": "2026-10-15", "city": "Brussels", "name": "Airbnb", "address": "Rue des Rameurs 30 rez de chauss\u00e9e, Brussels, Bruxelles 1000, Belgium", "cost": 585.51, "per_person": 195.17, "link": "https://www.airbnb.com/rooms/1195723781749636201", "who_paid": "Yogesh", "refund_by": "before Oct 6", "status": "booked"}, {"checkin": "2026-10-15", "checkout": "2026-10-16", "city": "Amsterdam", "name": "Hotel Nova", "address": "Nieuwezijds Voorburgwal 276, Amsterdam 1012 RS, Netherlands", "cost": 35.0, "per_person": 11.67, "link": "Chase Travel \u2014 35K points", "who_paid": "Yogesh", "refund_by": null, "status": "booked (points)"}, {"checkin": "2026-10-16", "checkout": "2026-10-18", "city": "London area (Maldon)", "name": "Staying with family", "address": "72 Granger Avenue, Maldon CM9 6AN, UK", "cost": null, "per_person": null, "link": null, "who_paid": null, "refund_by": null, "status": "family stay \u2014 no cost"}, {"checkin": "2026-10-18", "checkout": "2026-10-19", "city": "Reykjanesb\u00e6r (Keflav\u00edk airport)", "name": "Konvin Hotel by Reykjavik Keflavik Airport", "address": "Keilisbraut 762, Reykjanesb\u00e6r 235, Iceland", "cost": 86.74, "per_person": 28.91, "link": null, "who_paid": "Yogesh", "refund_by": "Oct 16 cancellation deadline", "status": "booked"}];
+const TRAINS = [{"date": "2026-10-05", "route": "London \u2192 Edinburgh", "depart": "2:03 PM", "arrive": null, "cost": 392.03, "cost_note": "round trip (London\u2013Edinburgh\u2013London)", "status": "booked"}, {"date": "2026-10-08", "route": "Edinburgh \u2192 London", "depart": "Afternoon \u2014 confirm booked departure", "arrive": null, "cost": null, "cost_note": "covered by the LDN\u2013EDI\u2013LDN round-trip fare above", "status": "confirm departure"}, {"date": "2026-10-09", "route": "London (St Pancras) \u2192 Paris (Eurostar)", "depart": "3:30 PM", "arrive": null, "cost": 477.0, "cost_note": null, "status": "booked"}, {"date": "2026-10-11", "route": "Paris \u2192 Brussels", "depart": "3:00 PM \u2014 confirm booked departure", "arrive": null, "cost": 129.0, "cost_note": "2 luggage pieces + backpack per person", "status": "confirm departure"}, {"date": "2026-10-14", "route": "Brussels \u2192 Ghent (day trip)", "depart": "7:30 AM", "arrive": null, "cost": null, "cost_note": "not separately logged \u2014 ~35 min direct", "status": "booked/local"}, {"date": "2026-10-14", "route": "Ghent \u2192 Brussels (return)", "depart": "11:00 AM", "arrive": null, "cost": null, "cost_note": "not separately logged \u2014 ~35 min direct", "status": "booked/local"}, {"date": "2026-10-15", "route": "Brussels \u2192 Amsterdam", "depart": "~8:00 AM", "arrive": null, "cost": 108.0, "cost_note": null, "status": "booked"}, {"date": "2026-10-16", "route": "Amsterdam \u2192 London (Eurostar)", "depart": "4:40 PM", "arrive": null, "cost": 441.0, "cost_note": null, "status": "booked"}];
+const ACTIVITIES_BOOKED = [{"date": "2026-10-06", "name": "Highlands Day Tour \u2014 Glenfinnan Viaduct, Glencoe & Fort William", "city": "Edinburgh", "cost": 271.92, "per_person": 90.64, "who_paid": "Yogesh", "details": "Coach pickup 7am (be there 6:45am) near Burns Monument", "refund_by": "7am Oct 5", "link": null}, {"date": "2026-10-13", "name": "Day Trip to Dinant & Luxembourg City (guided, English)", "city": "Brussels", "cost": 214.92, "per_person": 71.64, "who_paid": "Yogesh", "details": "Includes Grand Ducal Palace, Notre-Dame Cathedral, Casemates du Bock, Chemin de la Corniche, Adolphe Bridge", "refund_by": "Oct 12", "link": null}, {"date": "2026-10-03", "name": "Blue Lagoon", "city": "Reykjav\u00edk (layover)", "cost": 593.56, "per_person": 197.85, "who_paid": "Yogesh", "details": "Bathing suit + bathrobe needed; one free drink included; shower/puja stop here", "refund_by": null, "link": null}];
+const ACTIVITIES_TO_BOOK = [{"city": "Edinburgh", "name": "The Real Mary King's Close", "note": "Guided tour through the underground historic closes \u2014 book ahead, ticketed."}, {"city": "Paris", "name": "Louvre Museum", "note": "Book timed entry in advance \u2014 highlights-only visit."}, {"city": "Paris", "name": "Sainte-Chapelle", "note": "Iconic stained glass \u2014 expect a security line; ticket needed."}, {"city": "Paris", "name": "Arc de Triomphe (climb)", "note": "Book ahead if you want to climb to the top."}, {"city": "Paris", "name": "Seine River Cruise (night)", "note": "Confirm operator/booking \u2014 e.g. Bateaux Parisiens."}, {"city": "London", "name": "London Eye", "note": "Book a timed slot in advance."}, {"city": "London", "name": "Sky Garden", "note": "Free, but needs a pre-booked timed ticket \u2014 book before the day."}, {"city": "London", "name": "Westminster Abbey", "note": "Ticketed entry \u2014 confirm Saturday hours."}, {"city": "London", "name": "Tower of London", "note": "Ticketed \u2014 last admission for Crown Jewels ~5pm."}, {"city": "Amsterdam", "name": "Rijksmuseum", "note": "Ticketed \u2014 the Gallery of Honour is the essential stretch."}, {"city": "Amsterdam", "name": "Canal Cruise (sunset)", "note": "Confirm booking \u2014 dock near Prinsengracht/9 Streets."}, {"city": "Amsterdam", "name": "Zaanse Schans cheese farm & tasting", "note": "A hands-on cheese-making class may need pre-booking."}, {"city": "Amsterdam", "name": "Tony's Chocolonely Super Store", "note": "The make-your-own chocolate bar experience may need booking."}, {"city": "Ghent", "name": "Ghent Belfry (Belfort) climb", "note": "Ticketed entry to climb the tower."}, {"city": "Brussels", "name": "Chocolate Tour & Tasting \u2014 Sablon", "note": "Book a guided tour, or self-guide between Pierre Marcolini/Wittamer/Neuhaus/Passion Chocolat."}, {"city": "Brussels", "name": "Atomium", "note": "Ticketed \u2014 escalator/elevator up into the spheres."}, {"city": "Brussels", "name": "Mini Europe", "note": "Ticketed, right next to the Atomium."}];
+const FOOD_TAB = [{"date": "2026-10-02", "dow": "Friday", "city": null, "meals": [], "other_food": []}, {"date": "2026-10-03", "dow": "Saturday", "city": null, "meals": [], "other_food": []}, {"date": "2026-10-04", "dow": "Sunday", "city": "London", "meals": [], "other_food": []}, {"date": "2026-10-05", "dow": "Monday", "city": "London - Edinburgh", "meals": [{"type": "Dinner", "time": "8:00 PM", "name": null, "note": "Restaurant not booked yet \u2014 plan to find a good spot near today's stops."}], "other_food": ["Soul vegan paradise", "Consider it (sweets)", "Krema bakehouse", "Holy cow cafe", "Non viet vegan", "Kalpna vegant", "Vegan sora", "the happy fish"]}, {"date": "2026-10-06", "dow": "Tuesday - Ekadashi", "city": "Edinburgh - Highlands Tour", "meals": [{"type": "Dinner", "time": "7:30 PM", "name": "Frites - Lothian Road - 63 Lothian Rd, Edinburgh EH 1 2DJ UK", "note": "Belgian-style fries spot on Lothian Road."}], "other_food": ["Milk/yogurt", "Icecream", "find gluten free fries", "chips from home", "smoothies"]}, {"date": "2026-10-07", "dow": "Wednesday", "city": "Edinburgh", "meals": [{"type": "Breakfast", "time": "9:00 AM", "name": null, "note": "Restaurant not booked yet \u2014 plan to find a good spot near today's stops."}, {"type": "Lunch", "time": "12:30 PM", "name": null, "note": "Restaurant not booked yet \u2014 plan to find a good spot near today's stops."}, {"type": "Dinner", "time": "7:00 PM", "name": null, "note": "Restaurant not booked yet \u2014 plan to find a good spot near today's stops."}], "other_food": ["Soul vegan paradise", "Consider it (sweets)", "Krema bakehouse", "Holy cow cafe", "Non viet vegan", "Kalpna vegant", "Vegan sora", "the happy fish", "waterstones cafe"]}, {"date": "2026-10-08", "dow": "Thursday", "city": "Edinburgh to London", "meals": [{"type": "Breakfast", "time": "8:00 AM", "name": null, "note": "Restaurant not booked yet \u2014 plan to find a good spot near today's stops."}, {"type": "Lunch", "time": "11:00 AM", "name": null, "note": "Restaurant not booked yet \u2014 plan to find a good spot near today's stops."}, {"type": "Dinner", "time": "6:00 PM", "name": null, "note": "Restaurant not booked yet \u2014 plan to find a good spot near today's stops."}], "other_food": ["Tofu vegna", "Mildreds restaurant", "Cream dream london", "Purezza pizza", "Frites atelier", "Third culture deli8 london", "Mallow", "Tendril kitchen"]}, {"date": "2026-10-09", "dow": "Friday", "city": "London to Paris", "meals": [{"type": "Lunch", "time": "11:30 AM", "name": null, "note": "Lunch stop \u2014 restaurant not chosen yet."}, {"type": "Dinner", "time": "7:30 PM", "name": null, "note": "Dinner stop \u2014 restaurant not chosen yet."}, {"type": "Dessert", "time": "8:30 PM", "name": null, "note": "Sweet treat to cap off the day \u2014 spot not chosen yet."}], "other_food": ["Tofu vegna", "Mildreds restaurant", "Cream dream london", "Purezza pizza", "Frites atelier", "Third culture deli8 london", "Mallow", "Tendril kitchen"]}, {"date": "2026-10-10", "dow": "Saturday", "city": "Paris", "meals": [{"type": "Breakfast", "time": "8:00 AM", "name": "Land&Monkeys", "note": " \u2014 ask for a terrace/outdoor table if the weather's good, classic Paris caf\u00e9 photo"}, {"type": "Lunch", "time": "1:00 PM", "name": null, "note": "Lunch stop \u2014 restaurant not chosen yet."}, {"type": "Dinner", "time": "7:00 PM", "name": null, "note": "Restaurant not booked yet \u2014 plan to find a good spot near today's stops."}], "other_food": ["Cloud cakes", "bloom sushi", "Mesa paris", "Love juice bar", "Wild and the moon", "Bone shaker", "Graines du journ", "Cantine de lotus", "Ginsburger", "land & monkey", "La crema icecream"]}, {"date": "2026-10-11", "dow": "Sunday", "city": "Paris to Brussels", "meals": [{"type": "Breakfast", "time": "8:00 AM", "name": null, "note": "Breakfast \u2014 restaurant not chosen yet."}, {"type": "Lunch", "time": "11:30 AM", "name": null, "note": "Lunch stop \u2014 restaurant not chosen yet."}, {"type": "Dinner", "time": "6:30 PM", "name": null, "note": "Restaurant not booked yet \u2014 plan to find a good spot near today's stops."}], "other_food": ["Oui oui brussels", "have- a roll dessert", "Le botaniste belgium", "Kitsune burgers", "Frites atelier", "tich brussels", "laurent gerbald chocolatier", "taylors cafe brussles"]}, {"date": "2026-10-12", "dow": "Monday", "city": "Brussels", "meals": [{"type": "Breakfast", "time": "9:00 AM", "name": null, "note": "Restaurant not booked yet \u2014 plan to find a good spot near today's stops."}, {"type": "Lunch", "time": "11:30 AM", "name": null, "note": "Restaurant not booked yet \u2014 plan to find a good spot near today's stops."}, {"type": "Dinner", "time": "7:30 PM", "name": null, "note": "Restaurant not booked yet \u2014 plan to find a good spot near today's stops."}], "other_food": ["Oui oui brussels", "have- a roll dessert", "Le botaniste belgium", "Kitsune burgers", "Frites atelier", "tich brussels", "laurent gerbald chocolatier", "taylors cafe brussles"]}, {"date": "2026-10-13", "dow": "Tuesday", "city": "Brussels - Luxembourg - Brussels Tour", "meals": [{"type": "Breakfast", "time": "7:00 AM", "name": null, "note": "Restaurant not booked yet \u2014 plan to find a good spot near today's stops."}, {"type": "Lunch", "time": "12:30 PM", "name": null, "note": "Open/free-time block \u2014 Open block \u2014 Matcha Lab is a nice nearby option if you want matcha or coffee."}, {"type": "Dinner", "time": "6:00 PM", "name": null, "note": "Restaurant not booked yet \u2014 plan to find a good spot near today's stops."}], "other_food": ["Glow ernest wrap", "Ghent - plant a pizza"]}, {"date": "2026-10-14", "dow": "Wednesday", "city": "Brussels - Ghent", "meals": [{"type": "Breakfast", "time": "7:00 AM", "name": null, "note": "Restaurant not booked yet \u2014 plan to find a good spot near today's stops."}, {"type": "Lunch", "time": "1:30 PM", "name": "Plant A Pizza", "note": "Vegan-friendly pizza spot."}, {"type": "Dinner", "time": "6:30 PM", "name": null, "note": "Restaurant not booked yet \u2014 plan to find a good spot near today's stops."}], "other_food": ["Oui oui brussels", "have- a roll dessert", "Le botaniste belgium", "Kitsune burgers", "Frites atelier", "tich brussels", "laurent gerbald chocolatier", "taylors cafe brussles"]}, {"date": "2026-10-15", "dow": "Thursday", "city": "Brussels to Amsterdam", "meals": [{"type": "Brunch", "time": "11:30 AM", "name": null, "note": "Restaurant not booked yet \u2014 plan to find a vegan-friendly spot near today's stops."}, {"type": "Lunch", "time": "4:00 PM", "name": null, "note": "Restaurant not booked yet \u2014 plan to find a vegan-friendly spot near today's stops."}, {"type": "Dinner", "time": "7:30 PM", "name": null, "note": "Restaurant not booked yet \u2014 plan to find a vegan-friendly spot near today's stops."}], "other_food": ["Krishna vilas", "St jean bakery", "L'antica pizzeria da michele", "Van holland stroopwafels", "Hands egstrof", "Margos cafe", "Kailash Parbat"]}, {"date": "2026-10-16", "dow": "Friday", "city": "Amsterdam to London", "meals": [{"type": "Breakfast", "time": "7:00 AM", "name": null, "note": "Restaurant not booked yet \u2014 plan to find a vegan-friendly spot near today's stops."}, {"type": "Lunch", "time": "1:00 PM", "name": null, "note": "Restaurant not booked yet \u2014 plan to find a vegan-friendly spot near today's stops."}], "other_food": ["Tofu vegna", "Mildreds restaurant", "Cream dream london", "Purezza pizza", "Frites atelier", "Third culture deli8 london", "Mallow", "Tendril kitchen"]}, {"date": "2026-10-17", "dow": "Saturday", "city": "London", "meals": [{"type": "Breakfast", "time": "8:00 AM", "name": null, "note": "Restaurant not booked yet \u2014 plan to find a good spot near today's stops."}, {"type": "Lunch", "time": "2:00 PM", "name": null, "note": "Restaurant not booked yet \u2014 plan to find a good spot near today's stops."}, {"type": "Dinner", "time": "8:00 PM", "name": null, "note": "Restaurant not booked yet \u2014 plan to find a good spot near today's stops."}], "other_food": ["Tofu vegna", "Mildreds restaurant", "Cream dream london", "Purezza pizza", "Frites atelier", "Third culture deli8 london", "Mallow", "Tendril kitchen"]}, {"date": "2026-10-18", "dow": "Sunday", "city": "London to Airport", "meals": [{"type": "Breakfast", "time": "8:00 AM", "name": null, "note": "Restaurant not booked yet \u2014 plan to find a good spot near today's stops."}, {"type": "Lunch", "time": "1:00 PM", "name": null, "note": "Leicester Square / Covent Garden area"}], "other_food": ["Tofu vegna", "Mildreds restaurant", "Cream dream london", "Purezza pizza", "Frites atelier", "Third culture deli8 london", "Mallow", "Tendril kitchen"]}, {"date": "2026-10-19", "dow": "Monday", "city": "Iceland Layover", "meals": [{"type": "Lunch", "time": "12:00 PM", "name": null, "note": "Restaurant not booked yet \u2014 plan to find a vegan-friendly spot near today's stops."}], "other_food": ["Take food from london"]}];
+
+function escapeHtml(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function fmtDate(iso){ if(!iso) return ''; const [y,m,d]=iso.split('-').map(Number); return new Date(Date.UTC(y,m-1,d)).toLocaleDateString(undefined,{month:'short',day:'numeric',timeZone:'UTC'}); }
+function fmtDateFull(iso){ if(!iso) return ''; const [y,m,d]=iso.split('-').map(Number); return new Date(Date.UTC(y,m-1,d)).toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric',timeZone:'UTC'}); }
+function fmtMoney(n){ if(n===null||n===undefined||isNaN(n)) return 'TBD'; return '$'+n.toLocaleString(undefined,{minimumFractionDigits:0,maximumFractionDigits:2}); }
+
+/* ---------------- tab switching ---------------- */
+const views = {
+  home:document.querySelector('[data-view="home"]'),
+  plan:document.querySelector('[data-view="plan"]'),
+  food:document.querySelector('[data-view="food"]'),
+  flights:document.querySelector('[data-view="flights"]'),
+  hotels:document.querySelector('[data-view="hotels"]'),
+  trains:document.querySelector('[data-view="trains"]'),
+  activities:document.querySelector('[data-view="activities"]'),
+  costs:document.querySelector('[data-view="costs"]'),
+};
+function switchTab(tab){
+  document.querySelectorAll('.navbtn').forEach(b=>b.classList.toggle('active', b.getAttribute('data-tab')===tab));
+  Object.entries(views).forEach(([k,el])=>{ el.hidden = (k!==tab); });
+  window.scrollTo({top:0});
+}
+document.querySelectorAll('.navbtn').forEach(btn=>{
+  btn.addEventListener('click', ()=>switchTab(btn.getAttribute('data-tab')));
+});
+document.querySelectorAll('[data-goto]').forEach(btn=>{
+  btn.addEventListener('click', ()=>switchTab(btn.getAttribute('data-goto')));
+});
+
+/* ---------------- route chips ---------------- */
+function renderRoute(el){
+  el.innerHTML = ITINERARY.map(d=>`<span class="route-leg">${escapeHtml(d.city || d.dow.slice(0,3))}</span>`).join('');
+}
+renderRoute(document.getElementById('routeStripHome'));
+
+/* ---------------- HOME ---------------- */
+function renderHome(){
+  const today = new Date();
+  const tripStart = new Date(Date.UTC(2026,9,2));
+  const msPerDay = 86400000;
+  const diffDays = Math.round((tripStart - Date.UTC(today.getFullYear(),today.getMonth(),today.getDate())) / msPerDay);
+  const cd = document.getElementById('cdNum'), cu = document.getElementById('cdUnit');
+  if(diffDays > 0){ cd.textContent = diffDays; cu.textContent = diffDays===1 ? 'day to go' : 'days to go'; }
+  else if(diffDays === 0){ cd.textContent = '✈'; cu.textContent = 'today!'; }
+  else if(diffDays > -18){ cd.textContent = (-diffDays)+1; cu.textContent = 'trip day'; }
+  else { cd.textContent = '✓'; cu.textContent = 'trip complete'; }
+
+  document.getElementById('statCitiesHome').textContent = new Set(ITINERARY.map(d=>d.city).filter(Boolean)).size;
+  document.getElementById('statFlightsHome').textContent = FLIGHTS.length;
+
+  const todayIso = today.toISOString().slice(0,10);
+  let idx = ITINERARY.findIndex(d=>d.date >= todayIso);
+  if(idx === -1) idx = 0;
+  const day = ITINERARY[idx];
+  const card = document.getElementById('upNextCard');
+  if(!day.acts.length){
+    card.innerHTML = '<div class="empty-note">Nothing timed for this day yet.</div>';
+  } else {
+    card.innerHTML = `<div style="padding:10px 4px 2px;"><div class="day-eyebrow">${escapeHtml(day.dow||'')}, ${fmtDate(day.date)}</div><div class="day-sub" style="margin-top:0;">${escapeHtml(day.city||'')}</div></div>` +
+      day.acts.slice(0,4).map(a=>timelineRowHtml(a)).join('');
+  }
+}
+
+/* ---------------- route diagram ---------------- */
+const MEAL_PREFIX_RE = /^\s*(BREAKFAST|LUNCH|DINNER|BRUNCH|DESSERT)\s*[—\-:]*\s*/i;
+const DURATION_RE = /(~?\d+(?:-\d+)?\s*(?:min|hr|hour)s?)/i;
+function cleanStopTitle(a){
+  if(a.k === 'meal') return (a.t||'').replace(MEAL_PREFIX_RE,'').trim() || a.t;
+  return a.t;
+}
+function isPlaceholder(name){ return /tbd/i.test(name||''); }
+function buildDayRoute(day){
+  const nodes = [];
+  let pendingLabel = null;
+  day.acts.forEach(a=>{
+    if(a.k === 'sight' || a.k === 'meal'){
+      const title = cleanStopTitle(a);
+      nodes.push({title, placeholder: isPlaceholder(title), edgeLabel: pendingLabel});
+      pendingLabel = null;
+    } else if(a.k === 'transit' || a.k === 'travel'){
+      const hay = ((a.t||'') + ' ' + (a.n||''));
+      const m = hay.match(DURATION_RE);
+      if(m) pendingLabel = m[1].replace(/^~/,'');
+    }
+  });
+  return nodes;
+}
+function mapsUrlForDay(nodes){
+  const real = nodes.filter(n=>!n.placeholder).map(n=>n.title);
+  if(real.length < 2) return null;
+  const enc = s => encodeURIComponent(s);
+  const origin = enc(real[0]);
+  const destination = enc(real[real.length-1]);
+  const waypoints = real.slice(1,-1).map(enc).join('|');
+  let url = `https://www.google.com/maps/dir/?api=1&travelmode=walking&origin=${origin}&destination=${destination}`;
+  if(waypoints) url += `&waypoints=${waypoints}`;
+  return url;
+}
+function routeDiagramHtml(day){
+  const nodes = buildDayRoute(day);
+  if(nodes.length < 2) return '';
+  const mapsUrl = mapsUrlForDay(nodes);
+  let html = '<div class="route-diagram-wrap"><div class="route-diagram">';
+  nodes.forEach((n,i)=>{
+    if(i>0){
+      html += `<div class="rd-conn"><div class="ln"></div><div class="rd-time">${n.edgeLabel ? escapeHtml(n.edgeLabel) : ''}</div></div>`;
+    }
+    html += `<div class="rd-node"><div class="rd-dot"></div><div class="rd-label${n.placeholder?' tbd':''}">${escapeHtml(n.title)}</div></div>`;
+  });
+  html += '</div>';
+  if(mapsUrl){
+    html += `<a class="maps-link" href="${mapsUrl}" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 20l-5.5-2V4L9 6m0 14l6-2m-6 2V6m6 12 5.5 2V6L15 4m0 14V4m0 0L9 6"/></svg>
+      Open walking route in Google Maps</a>`;
+  }
+  html += '</div>';
+  return html;
+}
+
+/* ---------------- PLAN ---------------- */
+function timelineRowHtml(a){
+  const timeStr = a.s ? (a.e ? `${a.s}<span class="arr">– ${a.e}</span>` : a.s) : '';
+  return `<div class="tl-row">
+    <div class="tl-dotcol"><div class="tl-dot" style="--dot:var(--cat-${a.k})"></div></div>
+    <div>
+      <div class="tl-time tnum">${timeStr}</div>
+      <div class="tl-title">${escapeHtml(a.t)}${a.new ? '<span class="newtag">NEW</span>' : ''}</div>
+      ${a.n ? `<div class="tl-note">${escapeHtml(a.n)}</div>` : ''}
+      ${a.addr ? `<div class="tl-addr">${escapeHtml(a.addr)}</div>` : ''}
+    </div>
+  </div>`;
+}
+function renderPlan(){
+  const jump = document.getElementById('planJump');
+  jump.innerHTML = ITINERARY.map((d,i)=>`<button data-i="${i}">${(d.dow||'').slice(0,3)} ${fmtDate(d.date).split(' ')[1]}</button>`).join('');
+  jump.querySelectorAll('button').forEach(b=>b.addEventListener('click', ()=>{
+    document.getElementById('plan-day-'+b.getAttribute('data-i')).scrollIntoView({behavior:'smooth', block:'start'});
+  }));
+
+  const wrap = document.getElementById('planDays');
+  wrap.innerHTML = ITINERARY.map((day,i)=>`
+    <div class="day-section" id="plan-day-${i}">
+      <div class="day-eyebrow">Day ${i+1}</div>
+      <h2 class="day-heading">${escapeHtml(day.dow||'')}, ${fmtDate(day.date)}</h2>
+      <div class="day-sub">${escapeHtml(day.city || 'No leg label yet')}</div>
+      ${routeDiagramHtml(day)}
+      <div class="tl-card">
+        ${day.acts.length ? day.acts.map(timelineRowHtml).join('') : '<div class="empty-note">Nothing logged for this day yet.</div>'}
+      </div>
+    </div>`).join('');
+
+  const chips = [...jump.querySelectorAll('button')];
+  const sections = ITINERARY.map((_,i)=>document.getElementById('plan-day-'+i));
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const idx = sections.indexOf(e.target);
+        chips.forEach(c=>c.classList.remove('here'));
+        if(chips[idx]){ chips[idx].classList.add('here'); chips[idx].scrollIntoView({inline:'center', block:'nearest'}); }
+      }
+    });
+  }, {rootMargin:'-20% 0px -70% 0px'});
+  sections.forEach(s=>io.observe(s));
+}
+
+/* ---------------- FOOD tab ---------------- */
+const MEAL_ICONS = {
+  Breakfast:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><path d="M4 9h13a3 3 0 0 1 0 6h-1"/><path d="M4 9v7a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9"/><path d="M6 6c0-1 .8-1 .8-2M9 6c0-1 .8-1 .8-2"/></svg>',
+  Lunch:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M3 12h2M19 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg>',
+  Dinner:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><path d="M20 15.5A8 8 0 1 1 9 4a6.5 6.5 0 0 0 11 11.5Z"/></svg>',
+  Brunch:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><path d="M5 12h14M6 12a6 6 0 0 1 12 0"/><path d="M4 16h16"/></svg>',
+  Dessert:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="15" height="15"><circle cx="12" cy="12" r="8"/><circle cx="9" cy="10" r="0.6" fill="currentColor"/><circle cx="14" cy="9" r="0.6" fill="currentColor"/><circle cx="12" cy="14" r="0.6" fill="currentColor"/></svg>'
+};
+function foodRowHtml(m){
+  const tbd = !m.name;
+  const icon = MEAL_ICONS[m.type] || MEAL_ICONS.Dinner;
+  return `<div class="food-row">
+    <div class="food-icon">${icon}</div>
+    <div class="food-meta">
+      <div class="food-type">${escapeHtml(m.type)}${m.time ? ' · '+escapeHtml(m.time) : ''}</div>
+      <div class="food-name">${escapeHtml(m.name || 'Not chosen yet')}</div>
+      ${m.note ? `<div class="food-note">${escapeHtml(m.note)}</div>` : ''}
+    </div>
+    <div class="food-right"><span class="pill ${tbd?'warn':'good'}">${tbd?'TBD':'Picked'}</span></div>
+  </div>`;
+}
+function renderFood(){
+  const days = FOOD_TAB.filter(d=>d.meals.length || d.other_food.length);
+  const jump = document.getElementById('foodJump');
+  jump.innerHTML = days.map((d,i)=>`<button data-i="${i}">${fmtDate(d.date)}</button>`).join('');
+  jump.querySelectorAll('button').forEach(b=>b.addEventListener('click', ()=>{
+    document.getElementById('food-day-'+b.getAttribute('data-i')).scrollIntoView({behavior:'smooth', block:'start'});
+  }));
+  const wrap = document.getElementById('foodDays');
+  wrap.innerHTML = days.map((d,i)=>`
+    <div class="day-section" id="food-day-${i}">
+      <div class="day-eyebrow">${escapeHtml(d.dow||'')}</div>
+      <h2 class="day-heading">${fmtDate(d.date)}</h2>
+      <div class="day-sub">${escapeHtml(d.city||'')}</div>
+      ${d.meals.length ? `<div class="food-card">${d.meals.map(foodRowHtml).join('')}</div>` : ''}
+      ${d.other_food.length ? `<div class="section-eyebrow" style="margin-top:14px;">Other food spots to try nearby</div><div class="chiplist">${d.other_food.map(f=>`<span class="chip">${escapeHtml(f)}</span>`).join('')}</div>` : ''}
+    </div>`).join('');
+  if(!days.length) wrap.innerHTML = '<div class="empty-note">No meals logged yet.</div>';
+}
+
+/* ---------------- FLIGHTS tab ---------------- */
+function renderFlights(){
+  const wrap = document.getElementById('flightsList');
+  let html = `<div class="day-section" style="margin-top:6px;"><h2 class="day-heading">Flights</h2><div class="day-sub">${FLIGHTS.length} legs · booked together</div></div>`;
+  html += FLIGHTS.map(f => `
+    <div class="info-card">
+      <div class="info-head">
+        <div><div class="info-title">${escapeHtml(f.route)}</div><div class="info-sub">${fmtDateFull(f.date)}</div></div>
+        <div class="info-badge good">Booked</div>
+      </div>
+      <div class="info-row"><span><span class="k">Depart</span><br>${escapeHtml(f.depart)}</span><span style="text-align:right;"><span class="k">Arrive</span><br>${escapeHtml(f.arrive||'—')}</span></div>
+      ${f.note ? `<div class="info-note">${escapeHtml(f.note)}</div>` : ''}
+    </div>`).join('');
+  html += `<div class="summary-card"><strong>${fmtMoney(FLIGHTS_SUMMARY.total)}</strong> total (${fmtMoney(FLIGHTS_SUMMARY.per_person)}/person) for all 4 legs booked together, plus <strong>${fmtMoney(FLIGHTS_SUMMARY.bag_fee_total)}</strong> in bag fees (${fmtMoney(FLIGHTS_SUMMARY.bag_fee_per_person)}/person). Paid by ${escapeHtml(FLIGHTS_SUMMARY.who_paid)}. ${escapeHtml(FLIGHTS_SUMMARY.note)}</div>`;
+  wrap.innerHTML = html;
+}
+
+/* ---------------- HOTELS tab ---------------- */
+function renderHotels(){
+  const wrap = document.getElementById('hotelsList');
+  let html = `<div class="day-section" style="margin-top:6px;"><h2 class="day-heading">Hotels</h2><div class="day-sub">${HOTELS.length} stays</div></div>`;
+  html += HOTELS.map(h => {
+    const needsBooking = h.status === 'NEEDS BOOKING';
+    return `<div class="info-card">
+      <div class="info-head">
+        <div><div class="info-title">${escapeHtml(h.city)}</div><div class="info-sub">${fmtDate(h.checkin)} – ${fmtDate(h.checkout)} · ${escapeHtml(h.name)}</div></div>
+        <div class="info-badge ${needsBooking?'warn':'good'}">${needsBooking?'Needs booking':'Booked'}</div>
+      </div>
+      <div class="tl-addr" style="margin-top:8px;">${escapeHtml(h.address)}</div>
+      ${(h.cost!==null) ? `<div class="info-row"><span><span class="k">Cost</span><br>${fmtMoney(h.cost)}</span><span style="text-align:right;"><span class="k">Per person</span><br>${fmtMoney(h.per_person)}</span></div>` : ''}
+      ${h.refund_by ? `<div class="info-note">Refund/cancel by: ${escapeHtml(h.refund_by)}</div>` : ''}
+      ${h.link && h.link.startsWith('http') ? `<a class="info-link" href="${h.link}" target="_blank" rel="noopener">View booking →</a>` : (h.link ? `<div class="info-note">${escapeHtml(h.link)}</div>` : '')}
+    </div>`;
+  }).join('');
+  wrap.innerHTML = html;
+}
+
+/* ---------------- TRAINS tab ---------------- */
+function renderTrains(){
+  const wrap = document.getElementById('trainsList');
+  let html = `<div class="day-section" style="margin-top:6px;"><h2 class="day-heading">Trains</h2><div class="day-sub">${TRAINS.length} legs, in schedule order</div></div>`;
+  html += TRAINS.map(t => {
+    const confirm = t.status === 'confirm departure';
+    return `<div class="info-card">
+      <div class="info-head">
+        <div><div class="info-title">${escapeHtml(t.route)}</div><div class="info-sub">${fmtDateFull(t.date)}</div></div>
+        <div class="info-badge ${confirm?'warn':'good'}">${confirm?'Confirm time':'Booked'}</div>
+      </div>
+      <div class="info-row"><span><span class="k">Departs</span><br>${escapeHtml(t.depart)}</span><span style="text-align:right;"><span class="k">Cost</span><br>${fmtMoney(t.cost)}</span></div>
+      ${t.cost_note ? `<div class="info-note">${escapeHtml(t.cost_note)}</div>` : ''}
+    </div>`;
+  }).join('');
+  wrap.innerHTML = html;
+}
+
+/* ---------------- ACTIVITIES tab ---------------- */
+function renderActivities(){
+  const wrap = document.getElementById('activitiesList');
+  let html = `<div class="day-section" style="margin-top:6px;"><h2 class="day-heading">Activities</h2><div class="day-sub">Booked excursions &amp; things to book</div></div>`;
+  html += `<div class="section-eyebrow">Booked &amp; paid</div>`;
+  html += ACTIVITIES_BOOKED.map(a => `
+    <div class="info-card">
+      <div class="info-head">
+        <div><div class="info-title">${escapeHtml(a.name)}</div><div class="info-sub">${fmtDateFull(a.date)} · ${escapeHtml(a.city)}</div></div>
+        <div class="info-badge good">Booked</div>
+      </div>
+      <div class="info-row"><span><span class="k">Cost</span><br>${fmtMoney(a.cost)}</span><span style="text-align:right;"><span class="k">Per person</span><br>${fmtMoney(a.per_person)}</span></div>
+      ${a.details ? `<div class="info-note">${escapeHtml(a.details)}</div>` : ''}
+      ${a.refund_by ? `<div class="info-note">Refund/cancel by: ${escapeHtml(a.refund_by)}</div>` : ''}
+    </div>`).join('');
+
+  html += `<div class="section-eyebrow">Other attractions to book / bring tickets for</div>`;
+  const byCity = {};
+  ACTIVITIES_TO_BOOK.forEach(a=>{ (byCity[a.city] = byCity[a.city]||[]).push(a); });
+  Object.entries(byCity).forEach(([city, items])=>{
+    html += `<div class="info-card">
+      <div class="info-title">${escapeHtml(city)}</div>
+      ${items.map(a=>`<div style="margin-top:10px; padding-top:10px; border-top:1px solid var(--line);"><div style="font-weight:500; font-size:0.88rem;">${escapeHtml(a.name)}</div><div class="food-note" style="margin-top:2px;">${escapeHtml(a.note)}</div></div>`).join('')}
+    </div>`;
+  });
+  wrap.innerHTML = html;
+}
+
+/* ---------------- BUDGET (shared db) ---------------- */
+const TRAVELERS = 3;
+const SECTION_COLOR = {"Flights":"var(--sec-flights)","HOTEL":"var(--sec-hotel)","Transportation":"var(--sec-transport)","Excursions/Activities":"var(--sec-excursions)","Food":"var(--sec-food)","Extras":"var(--sec-extras)"};
+const SECTION_LABEL = {"Flights":"Flights","HOTEL":"Hotel","Transportation":"Transportation","Excursions/Activities":"Excursions & Activities","Food":"Food","Extras":"Extras"};
+const SECTION_ORDER = ["Flights","HOTEL","Transportation","Excursions/Activities","Food","Extras"];
+
+let db = null;
+let liveItems = [];
+let usingFallback = false;
+
+function seedFallback(){
+  usingFallback = true;
+  document.getElementById('offlineNote').classList.add('show');
+  renderCosts();
+}
+async function initDb(){
+  try{ db = window.claude?.use ? await window.claude.use('db') : null; }catch(e){ db = null; }
+  if(!db){ seedFallback(); return; }
+  db.collection('cost_items').onSnapshot(snap=>{
+    liveItems = snap.docs.map(d=>({id:d.id, ...d.data()}));
+    renderCosts();
+  }, err=>{ console.warn('subscribe error', err); if(!liveItems.length) seedFallback(); });
+}
+
+function groupedBySection(){
+  const g = {}; SECTION_ORDER.forEach(s=>g[s]=[]);
+  liveItems.forEach(it=>{ if(!g[it.section]) g[it.section]=[]; g[it.section].push(it); });
+  Object.values(g).forEach(arr=>arr.sort((a,b)=>(a.order||0)-(b.order||0)));
+  return g;
+}
+function renderCosts(){
+  const grouped = groupedBySection();
+  let total = 0, tbd = 0;
+  const sectionTotals = SECTION_ORDER.map(sec=>{
+    const items = grouped[sec] || [];
+    let subtotal = 0;
+    items.forEach(it=>{ if(typeof it.cost==='number'){ subtotal += it.cost; } else { tbd++; } });
+    total += subtotal;
+    return {sec, subtotal};
+  });
+  document.getElementById('statTotal').textContent = fmtMoney(total);
+  document.getElementById('statPerPerson').textContent = fmtMoney(total/TRAVELERS);
+  document.getElementById('statTbd').textContent = tbd;
+
+  const maxSub = Math.max(1, ...sectionTotals.map(s=>s.subtotal));
+  document.getElementById('barChart').innerHTML = sectionTotals.map(s=>`
+    <div class="bar-row">
+      <div class="label">${SECTION_LABEL[s.sec]}</div>
+      <div class="bar-track"><div class="bar-fill" style="width:${(s.subtotal/maxSub*100).toFixed(1)}%; background:${SECTION_COLOR[s.sec]}"></div></div>
+      <div class="amt tnum">${fmtMoney(s.subtotal)}</div>
+    </div>`).join('');
+
+  const wrap = document.getElementById('costSections');
+  wrap.innerHTML = '';
+  SECTION_ORDER.forEach(sec=>{
+    const items = grouped[sec] || [];
+    const subtotal = sectionTotals.find(s=>s.sec===sec).subtotal;
+    const secEl = document.createElement('div');
+    secEl.className = 'cost-section';
+    secEl.innerHTML = `<div class="cost-section-head">
+        <h3><span class="cost-swatch" style="background:${SECTION_COLOR[sec]}"></span>${SECTION_LABEL[sec]}</h3>
+        <div class="subtotal tnum">${fmtMoney(subtotal)}</div>
+      </div>
+      <div class="cost-list" data-sec="${sec}"></div>
+      <button class="addbtn" data-add="${sec}">+ Add item</button>`;
+    wrap.appendChild(secEl);
+    const list = secEl.querySelector('.cost-list');
+    items.forEach(it=>list.appendChild(renderItemRow(it)));
+  });
+  wrap.querySelectorAll('[data-add]').forEach(btn=>btn.addEventListener('click', ()=>addItem(btn.getAttribute('data-add'))));
+}
+function debounce(fn,wait){ let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a),wait); }; }
+function escapeAttr(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
+function renderItemRow(it){
+  const row = document.createElement('div');
+  row.className = 'cost-item';
+  row.innerHTML = `
+    <input class="ci name" value="${escapeAttr(it.item||'')}" placeholder="Item">
+    <div class="cost-input-wrap"><span class="sym">$</span><input class="ci cost" type="number" inputmode="decimal" value="${it.cost!==null && it.cost!==undefined ? it.cost : ''}" placeholder="TBD"></div>
+    <button class="delbtn" title="Remove">✕</button>
+    <div class="field2">
+      <input class="ci details" value="${escapeAttr(it.details||'')}" placeholder="Notes">
+      <input class="ci link" value="${escapeAttr(it.link||'')}" placeholder="Link (optional)">
+    </div>`;
+  const nameInput = row.querySelector('.name'), costInput = row.querySelector('.cost');
+  const detailsInput = row.querySelector('.details'), linkInput = row.querySelector('.link');
+  const delBtn = row.querySelector('.delbtn');
+  const saveField = debounce((field,val)=>updateItem(it.id,{[field]:val}), 500);
+  nameInput.addEventListener('input', ()=>saveField('item', nameInput.value));
+  costInput.addEventListener('input', ()=>saveField('cost', costInput.value===''?null:parseFloat(costInput.value)));
+  detailsInput.addEventListener('input', ()=>saveField('details', detailsInput.value));
+  linkInput.addEventListener('input', ()=>saveField('link', linkInput.value));
+  delBtn.addEventListener('click', ()=>deleteItem(it.id));
+  return row;
+}
+async function updateItem(id, patch){
+  if(usingFallback || !db){ const it=liveItems.find(x=>x.id===id); if(it) Object.assign(it,patch); renderCosts(); return; }
+  try{ await db.collection('cost_items').doc(id).update(patch); }catch(e){ console.warn('update failed', e); }
+}
+async function deleteItem(id){
+  if(usingFallback || !db){ liveItems = liveItems.filter(x=>x.id!==id); renderCosts(); return; }
+  try{ await db.collection('cost_items').doc(id).delete(); }catch(e){ console.warn('delete failed', e); }
+}
+async function addItem(section){
+  const maxOrder = Math.max(0, ...liveItems.filter(x=>x.section===section).map(x=>x.order||0));
+  const data = {section, item:'New item', cost:null, details:'', link:'', order:maxOrder+1};
+  if(usingFallback || !db){ data.id='seed'+Math.random().toString(36).slice(2); liveItems.push(data); renderCosts(); return; }
+  try{ await db.collection('cost_items').add(data); }catch(e){ console.warn('add failed', e); }
+}
+
+renderHome();
+renderPlan();
+renderFood();
+renderFlights();
+renderHotels();
+renderTrains();
+renderActivities();
+initDb();
+</script>
